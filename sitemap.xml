@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://hongwan.xyz/xshell.html</loc>
+    
+    <lastmod>2020-11-25</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://hongwan.xyz/%E4%B8%80%E9%94%AE%E7%94%9F%E6%88%90GEO%E5%85%B3%E9%94%AE%E5%AD%97%E7%BB%93%E6%9E%9C.html</loc>
     
     <lastmod>2020-11-25</lastmod>
@@ -197,13 +204,6 @@
     
   </url>
   
-  <url>
-    <loc>http://hongwan.xyz/xshell.html</loc>
-    
-    <lastmod>2020-11-25</lastmod>
-    
-  </url>
-  
 
   <url>
     <loc>http://hongwan.xyz/</loc>
@@ -214,14 +214,14 @@
 
   
   <url>
-    <loc>http://hongwan.xyz/tags/%E7%94%9F%E4%BF%A1/</loc>
+    <loc>http://hongwan.xyz/tags/NFC/</loc>
     <lastmod>2020-11-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://hongwan.xyz/tags/NFC/</loc>
+    <loc>http://hongwan.xyz/tags/%E7%94%9F%E4%BF%A1/</loc>
     <lastmod>2020-11-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -249,6 +249,13 @@
   </url>
   
   <url>
+    <loc>http://hongwan.xyz/tags/%E7%A0%B4%E8%A7%A3/</loc>
+    <lastmod>2020-11-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://hongwan.xyz/tags/cdn%E5%8A%A0%E9%80%9F/</loc>
     <lastmod>2020-11-25</lastmod>
     <changefreq>daily</changefreq>
@@ -257,13 +264,6 @@
   
   <url>
     <loc>http://hongwan.xyz/tags/python/</loc>
-    <lastmod>2020-11-25</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://hongwan.xyz/tags/%E7%A0%B4%E8%A7%A3/</loc>
     <lastmod>2020-11-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
