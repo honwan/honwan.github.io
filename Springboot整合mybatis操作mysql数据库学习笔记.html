@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+<meta name="yandex-verification" content="702286bed9378846" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="zBJedaisP__2UhNxkI6WXJnaT">
+  <meta name="msvalidate.01" content="D969DF6E598E54872694D826CCFE7410">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://honwan.xyz').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="php其实很方便简单，但是多了之后就容易乱；springmvc 是目前后端最火的框架，而配置比较麻烦，于是有了SpringBoot 省去很多配置，上手更加方便；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot整合mybatis简单学习笔记">
+<meta property="og:url" content="http://honwan.xyz/Springboot%E6%95%B4%E5%90%88mybatis%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">
+<meta property="og:site_name" content="honwan">
+<meta property="og:description" content="php其实很方便简单，但是多了之后就容易乱；springmvc 是目前后端最火的框架，而配置比较麻烦，于是有了SpringBoot 省去很多配置，上手更加方便；">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-23T13:39:49.386Z">
+<meta property="article:modified_time" content="2019-02-20T13:10:07.534Z">
+<meta property="article:author" content="honwan">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://honwan.xyz/Springboot%E6%95%B4%E5%90%88mybatis%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>SpringBoot整合mybatis简单学习笔记 | honwan</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BRSRB4XMYT"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-BRSRB4XMYT');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">honwan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://honwan.xyz/Springboot%E6%95%B4%E5%90%88mybatis%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="honwan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="honwan">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringBoot整合mybatis简单学习笔记
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-23 21:39:49" itemprop="dateCreated datePublished" datetime="2020-11-23T21:39:49+08:00">2020-11-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-02-20 21:10:07" itemprop="dateModified" datetime="2019-02-20T21:10:07+08:00">2019-02-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>php其实很方便简单，但是多了之后就容易乱；<br>springmvc 是目前后端最火的框架，而配置比较麻烦，于是有了SpringBoot 省去很多配置，上手更加方便；</p>
+<a id="more"></a> 
+<h3 id="零、工具："><a href="#零、工具：" class="headerlink" title="零、工具："></a>零、工具：</h3><p>(1)IDEA:插件：lombok plugin 、 Mybatis plugin 跳转 、CodeGlance右边栏、Grep console日志区分、JRebel热部署<br>(2)数据库：Navicat Premium<br>(3)请求测试：Postman<br>(4)浏览器插件：WEB前端助手(FeHelper) 方便显示json</p>
+<h3 id="一、新建Springboot项目"><a href="#一、新建Springboot项目" class="headerlink" title="一、新建Springboot项目"></a>一、新建Springboot项目</h3><div align=center>![avatar](/uploads/springboot/1.png)
+
+<div align=center>![avatar](/uploads/springboot/2.png)
+
+<div align=center>![avatar](/uploads/springboot/3.png)
+
+<div align=center>![avatar](/uploads/springboot/4.png)
+
+<h3 id="（二）开启热更新："><a href="#（二）开启热更新：" class="headerlink" title="（二）开启热更新："></a>（二）开启热更新：</h3><p>添加依赖：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-devtools&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>File-&gt;setting：</p>
+<div align=center>![avatar](/uploads/springboot/5.png)
+
+<p>ctrl+alt+shift+/ 就会出来Registry…</p>
+<div align=center>![avatar](/uploads/springboot/6.png)
+
+
+<p>顶部菜单- &gt;Edit Configurations</p>
+<div align=center>![avatar](/uploads/springboot/7.png)
+
+
+
+<h3 id="（三）开始"><a href="#（三）开始" class="headerlink" title="（三）开始"></a>（三）开始</h3><p>** pom.xml文件：**</p>
+<p>替换数据源：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- https:&#x2F;&#x2F;mvnrepository.com&#x2F;artifact&#x2F;com.alibaba&#x2F;druid --&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;com.alibaba&lt;&#x2F;groupId&gt;</span><br><span class="line">&lt;artifactId&gt;druid&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;version&gt;1.1.12&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>日志：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;log4j&lt;&#x2F;groupId&gt;</span><br><span class="line">&lt;artifactId&gt;log4j&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;version&gt;1.2.17&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+<p>lombok插件方便写Getter\Setter：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">&lt;groupId&gt;org.projectlombok&lt;&#x2F;groupId&gt;</span><br><span class="line">&lt;artifactId&gt;lombok&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;scope&gt;provided&lt;&#x2F;scope&gt;</span><br><span class="line">&lt;version&gt;1.16.18&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>**  appocation.yml文件 ** </p>
+<p>注意空格，冒号后需要有一个空格！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line"> datasource: #数据源配置</span><br><span class="line">  url: jdbc:mysql:&#x2F;&#x2F;localhost:3307&#x2F;mybatis?serverTimezone&#x3D;GMT%2B8</span><br><span class="line">  username: root</span><br><span class="line">  password: usbw</span><br><span class="line">  driver-class-name: com.mysql.cj.jdbc.Driver</span><br><span class="line">  type: com.alibaba.druid.pool.DruidDataSource</span><br><span class="line"></span><br><span class="line">  initialSize: 5</span><br><span class="line">  minIdle: 5</span><br><span class="line">  maxActive: 20</span><br><span class="line">  maxWait: 60000</span><br><span class="line">  timeBetweenEvictionRunsMillis: 60000</span><br><span class="line">  minEvictableIdleTimeMillis: 300000</span><br><span class="line">  validationQuery: SELECT 1 FROM DUAL</span><br><span class="line">  testWhileIdle: true</span><br><span class="line">  testOnBorrow: false</span><br><span class="line">  testOnReturn: false</span><br><span class="line">  poolPreparedStatements: true</span><br><span class="line">  # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，&#39;wall&#39;用于防火墙</span><br><span class="line">  filters: stat,wall,log4j</span><br><span class="line">  maxPoolPreparedStatementPerConnectionSize: 20</span><br><span class="line">  useGlobalDataSourceStat: true</span><br><span class="line">  connectionProperties: druid.stat.mergeSql&#x3D;true;druid.stat.slowSqlMillis&#x3D;500</span><br><span class="line"></span><br><span class="line">mybatis: #如果是配置文件版需要加上这个</span><br><span class="line">  config-location: classpath:mybatis&#x2F;mybatis-config.xml  指定全局配置文件位置</span><br><span class="line">  mapper-locations: classpath:mybatis&#x2F;mapper&#x2F;*.xml 指定sql映射文件位置</span><br></pre></td></tr></table></figure>
+
+
+
+<p>**   数据源配置文件： ** </p>
+<p>config文件夹，新建DruidConfig.java:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">package com.example.demo3.config;</span><br><span class="line">@Configuration</span><br><span class="line">public class DruidConfig &#123;</span><br><span class="line"></span><br><span class="line">@ConfigurationProperties(prefix &#x3D; &quot;spring.datasource&quot;)</span><br><span class="line">@Bean</span><br><span class="line">public DataSource druid() &#123;</span><br><span class="line">  return new DruidDataSource();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line">* 配置Druid的监控</span><br><span class="line">* 1、配置一个管理后台的Servlet</span><br><span class="line">* @return</span><br><span class="line">*&#x2F;</span><br><span class="line">@Bean</span><br><span class="line">public ServletRegistrationBean statViewServlet() &#123;</span><br><span class="line">  ServletRegistrationBean bean &#x3D; new ServletRegistrationBean(new StatViewServlet(), &quot;&#x2F;druid&#x2F;*&quot;);</span><br><span class="line">  Map&lt;String, String&gt; initParams &#x3D; new HashMap&lt;&gt;(4);</span><br><span class="line">  initParams.put(&quot;loginUsername&quot;, &quot;admin&quot;);</span><br><span class="line">  initParams.put(&quot;loginPassword&quot;, &quot;123456&quot;);</span><br><span class="line">  &#x2F;&#x2F;默认就是允许所有访问</span><br><span class="line">  initParams.put(&quot;allow&quot;, &quot;&quot;);</span><br><span class="line">  initParams.put(&quot;deny&quot;, &quot;192.168.15.21&quot;);</span><br><span class="line">  bean.setInitParameters(initParams);</span><br><span class="line">  return bean;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line">* 2、配置一个web监控的filter</span><br><span class="line">* @return</span><br><span class="line">*&#x2F;</span><br><span class="line">@Bean</span><br><span class="line">public FilterRegistrationBean webStatFilter() &#123;</span><br><span class="line">  FilterRegistrationBean bean &#x3D; new FilterRegistrationBean();</span><br><span class="line">  bean.setFilter(new WebStatFilter());</span><br><span class="line">  Map&lt;String, String&gt; initParams &#x3D; new HashMap&lt;&gt;(1);</span><br><span class="line">  initParams.put(&quot;exclusions&quot;, &quot;*.js,*.css,&#x2F;druid&#x2F;*&quot;);</span><br><span class="line">  bean.setInitParameters(initParams);</span><br><span class="line">  bean.setUrlPatterns(Arrays.asList(&quot;&#x2F;*&quot;));</span><br><span class="line">  return bean;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-创建mysql数据库"><a href="#1-创建mysql数据库" class="headerlink" title="1.创建mysql数据库"></a>1.创建mysql数据库</h4><p>department表:</p>
+<div align=center>![avatar](/uploads/springboot/8.png)
+
+
+<p>employee表：</p>
+<div align=center>![avatar](/uploads/springboot/9.png)
+
+
+<h3 id="注解版："><a href="#注解版：" class="headerlink" title="注解版："></a>注解版：</h3><p>**   2.创建bean ** </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">package com.example.demo3.bean;</span><br><span class="line">import lombok.Getter;</span><br><span class="line">import lombok.Setter;</span><br><span class="line">@Getter &#x2F;&#x2F;插件</span><br><span class="line">@Setter</span><br><span class="line">public class Department &#123;</span><br><span class="line">    private Integer id;</span><br><span class="line">    private String departmentName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> ** 3.创建mapper ** </p>
+<p> 注意点<br>(1)@Mapper注解<br>(2)interface接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">package com.example.demo3.mapper;</span><br><span class="line">import com.example.demo3.bean.Department;</span><br><span class="line">import org.apache.ibatis.annotations.*;</span><br><span class="line">&#x2F;&#x2F; 指定這是一個操作數據庫的Mapper</span><br><span class="line">@Mapper &#x2F;&#x2F;注解很重要！！！</span><br><span class="line">public interface DepartmentMapper &#123;</span><br><span class="line">    @Select(&quot;select * from department where id&#x3D;#&#123;id&#125;&quot;)</span><br><span class="line">    public Department getDeptById(Integer id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者统一在Application.java加上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@MapperScan(value&#x3D;&quot;com.example.demo3.mapper&quot;)</span><br></pre></td></tr></table></figure>
+<p>mapper目录下所有接口都自动添加了mapper注解</p>
+<p>**   4.创建Controller ** </p>
+<p>注意点：<br>(1)@RestController注解<br>(2)Autowired  自动装配<br>(3)GetMapping 请求链接地址{id}为参数<br>(4)PathVariable ，如果id为1，直接在地址后面加/dept/1; RequestParam 则是dept?id=1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">public class DeptController &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    DepartmentMapper departmentMapper;</span><br><span class="line">    @GetMapping(&quot;&#x2F;dept&#x2F;&#123;id&#125;&quot;)</span><br><span class="line">    public Department getDepartment(@PathVariable(&quot;id&quot;) Integer id)&#123;</span><br><span class="line">        return departmentMapper.getDeptById(id);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置文件版："><a href="#配置文件版：" class="headerlink" title="配置文件版："></a>配置文件版：</h3><p>同理：</p>
+<p>** (1)创建bean ** </p>
+<p>**  (2)创建mapper: ** </p>
+<p>**  (3)创建xml文件 ** </p>
+<p>mybatis/mapper添加mybatis-config.xml全局配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration</span><br><span class="line">    PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Config 3.0&#x2F;&#x2F;EN&quot;</span><br><span class="line">    &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-config.dtd&quot;&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;settings&gt;</span><br><span class="line">        &lt;setting name&#x3D;&quot;mapUnderscoreToCamelCase&quot; value&#x3D;&quot;true&quot;&#x2F;&gt;  &#x2F;&#x2F;表示添加驼峰命名法</span><br><span class="line">    &lt;&#x2F;settings&gt;</span><br><span class="line">&lt;&#x2F;configuration&gt;</span><br><span class="line"></span><br><span class="line">mybatis&#x2F;mapper&#x2F;EmployeeMapper.xml</span><br><span class="line"></span><br><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot; ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper PUBLIC &quot;-&#x2F;&#x2F;mybatis.org&#x2F;&#x2F;DTD Mapper 3.0&#x2F;&#x2F;EN&quot; &quot;http:&#x2F;&#x2F;mybatis.org&#x2F;dtd&#x2F;mybatis-3-mapper.dtd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;mapper namespace&#x3D;&quot;com.example.demo3.mapper.EmployeeMapper&quot;&gt;</span><br><span class="line">    &lt;select id&#x3D;&quot;getEmpById&quot; resultType&#x3D;&quot;com.example.demo3.bean.Employee&quot;&gt;</span><br><span class="line">        SELECT * FROM employee WHERE id &#x3D; #&#123;id&#125;</span><br><span class="line">    &lt;&#x2F;select&gt;</span><br><span class="line">&lt;&#x2F;mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<p>appocation.yml文件添加：</p>
+<p>namespace需要对应好mapper</p>
+<p>**  (4)添加controller ** </p>
+<p>同理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Autowired</span><br><span class="line">EmployeeMapper employeeMapper;</span><br><span class="line">@GetMapping(&quot;&#x2F;emp&#x2F;&#123;id&#125;&quot;)</span><br><span class="line">public Employee getEmp(@PathVariable(&quot;id&quot;) Integer id)&#123;</span><br><span class="line">  return employeeMapper.getEmpById(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>返回为Map格式方便处理数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">Mapper： List &lt;Map&lt;String,Object&gt;&gt;</span><br><span class="line"></span><br><span class="line">public interface WerDiffDatasetMapper &#123;</span><br><span class="line">    List &lt;Map&lt;String,Object&gt;&gt; getCancerdatasetByCancer (String cancer);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">xml：resultType&#x3D;&quot;java.util.HashMap&quot;</span><br><span class="line"></span><br><span class="line">&lt;select id&#x3D;&quot;getCancerdatasetByCancer&quot; resultType&#x3D;&quot;java.util.HashMap&quot;&gt;</span><br><span class="line">    SELECT distinct dataset FROM geo_sample_dataset WHERE cancer&#x3D;#&#123;cancer&#125;</span><br><span class="line">&lt;&#x2F;select&gt;</span><br><span class="line"></span><br><span class="line">controller</span><br><span class="line"></span><br><span class="line">public Map&lt;String, Object&gt; getdataset(@RequestParam(value&#x3D;&quot;cancer&quot;) String cancer)&#123;</span><br><span class="line">    Map &lt;String,Object&gt; modelMap&#x3D;new HashMap&lt;String,Object&gt;();</span><br><span class="line">    List &lt;Map&lt;String,Object&gt;&gt; cancerDatasetlist&#x3D;werDiffDatasetMapper.getCancerdatasetByCancer(cancer);</span><br><span class="line">    List&lt;String&gt; cancerDataset &#x3D; new ArrayList&lt;String&gt;();</span><br><span class="line">    for (Map&lt;String, Object&gt; map:cancerDatasetlist ) &#123;</span><br><span class="line">        for (Map.Entry&lt;String, Object&gt; entry : map.entrySet() &#x2F;&#x2F;遍历map的key集合 获取对应key的value</span><br><span class="line">        ) &#123;</span><br><span class="line">        if (&quot;dataset&quot;.equals(entry.getKey())) &#123;</span><br><span class="line">            cancerDataset.add(String.valueOf(entry.getValue()));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    modelMap.put(&quot;datasetinfo&quot;,cancerDataset);</span><br><span class="line">    return modelMap;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>List &lt;Map&lt;String,Object&gt;&gt; cancerDatasetlist=werDiffDatasetMapper.getCancerdatasetByCancer(cancer);</p>
+<p>新建List &lt;Map&lt;String,Object&gt;&gt;接收数据<br>创建list 筛选处理数据，返回给modelMap</p>
+<h4 id="log4j初始配置："><a href="#log4j初始配置：" class="headerlink" title="log4j初始配置："></a>log4j初始配置：</h4><p>resources文件夹下,创建文件：log4j.properties</p>
+<p>更改最后一行包名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">log4j.rootLogger&#x3D;debug, stdout, R</span><br><span class="line"></span><br><span class="line">log4j.appender.stdout&#x3D;org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.stdout.layout&#x3D;org.apache.log4j.PatternLayout</span><br><span class="line"></span><br><span class="line">log4j.appender.stdout.layout.ConversionPattern&#x3D;%5p - %m%n</span><br><span class="line"></span><br><span class="line">log4j.appender.R&#x3D;org.apache.log4j.RollingFileAppender</span><br><span class="line">log4j.appender.R.File&#x3D;firestorm.log</span><br><span class="line"></span><br><span class="line">log4j.appender.R.MaxFileSize&#x3D;100KB</span><br><span class="line">log4j.appender.R.MaxBackupIndex&#x3D;1</span><br><span class="line"></span><br><span class="line">log4j.appender.R.layout&#x3D;org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.R.layout.ConversionPattern&#x3D;%p %t %c - %m%n</span><br><span class="line"></span><br><span class="line">#log4j.logger.自己的包名&#x3D;DEBUG</span><br><span class="line"></span><br><span class="line">log4j.logger.com.example.demo3&#x3D;DEBUG</span><br></pre></td></tr></table></figure>
+
+<h4 id="mysql-联合查询："><a href="#mysql-联合查询：" class="headerlink" title="mysql 联合查询："></a>mysql 联合查询：</h4><p>** 一对多：使用：collection ** </p>
+<p>gene2Peaks 字表 ，加上多的Set：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private Set &lt;Gene2Peak&gt; gene2Peaks;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;collection property&#x3D;&quot;gene2Peaks&quot; ofType&#x3D;&quot;com.atguigu.springboot.bean.Gene2Peak&quot;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public class GeneInfo &#123;</span><br><span class="line">    private String genename;</span><br><span class="line">    private Integer geneid;</span><br><span class="line"></span><br><span class="line">    private Set &lt;Gene2Peak&gt; gene2Peaks;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>**  一对一：不用set,使用association ** </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;association property&#x3D;&quot;peakInfos&quot; javaType&#x3D;&quot;com.atguigu.springboot.bean.PeakInfo&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public class Gene2Peak &#123;</span><br><span class="line">  private Integer g2ppeakid;</span><br><span class="line">  private PeakInfo peakInfos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yansum/p/5819973.html">https://www.cnblogs.com/yansum/p/5819973.html</a></p>
+<p>返回嵌套的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id&#x3D;&quot;getSearch&quot; resultMap&#x3D;&quot;SearchMapper&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>直接返回：list  map</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id&#x3D;&quot;getSearch&quot; resultType&#x3D;&quot;java.util.HashMap&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+
+<p>完整：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;mapper namespace&#x3D;&quot;com.atguigu.springboot.mapper.SearchMapper&quot;&gt;</span><br><span class="line">    &lt;resultMap type&#x3D;&quot;com.atguigu.springboot.bean.GeneInfo&quot; id&#x3D;&quot;SearchMapper&quot;&gt;</span><br><span class="line">        &lt;id column&#x3D;&quot;geneid&quot; property&#x3D;&quot;geneid&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;genename&quot; property&#x3D;&quot;genename&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;strand&quot; property&#x3D;&quot;strand&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;descr&quot; property&#x3D;&quot;descr&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;Entrezid&quot; property&#x3D;&quot;Entrezid&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;Ensemblid&quot; property&#x3D;&quot;Ensemblid&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;Uniprotid&quot; property&#x3D;&quot;Uniprotid&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;collection property&#x3D;&quot;gene2Peaks&quot; ofType&#x3D;&quot;com.atguigu.springboot.bean.Gene2Peak&quot;&gt;</span><br><span class="line">            &lt;id column&#x3D;&quot;g2ppeakid&quot; property&#x3D;&quot;g2ppeakid&quot;&#x2F;&gt;</span><br><span class="line">            &lt;result column&#x3D;&quot;g2pgeneid&quot; property&#x3D;&quot;g2pgeneid&quot;&#x2F;&gt;</span><br><span class="line">            &lt;association property&#x3D;&quot;peakInfos&quot; javaType&#x3D;&quot;com.atguigu.springboot.bean.PeakInfo&quot;&gt;</span><br><span class="line">                &lt;id column&#x3D;&quot;peakid&quot; property&#x3D;&quot;peakid&quot;&gt;&lt;&#x2F;id&gt;</span><br><span class="line">                &lt;id column&#x3D;&quot;seq&quot; property&#x3D;&quot;seq&quot;&gt;&lt;&#x2F;id&gt;</span><br><span class="line">                &lt;id column&#x3D;&quot;num&quot; property&#x3D;&quot;num&quot;&gt;&lt;&#x2F;id&gt;</span><br><span class="line">            &lt;&#x2F;association&gt;</span><br><span class="line">        &lt;&#x2F;collection&gt;</span><br><span class="line">    &lt;&#x2F;resultMap&gt;</span><br><span class="line"></span><br><span class="line">    &lt;select id&#x3D;&quot;getSearch&quot; resultType&#x3D;&quot;java.util.HashMap&quot;&gt;</span><br><span class="line">        SELECT geneinfo.*,peakinfo.* FROM geneinfo ,gene2peak,peakinfo where geneid&#x3D;g2pgeneid AND peakid &#x3D; g2ppeakid</span><br><span class="line">        &lt;if test&#x3D;&quot;search !&#x3D; &#39;&#39;&quot;&gt;</span><br><span class="line">            AND genename LIKE &#39;%$&#123;search&#125;%&#39; OR Entrezid LIKE &#39;%$&#123;search&#125;%&#39; OR strand LIKE &#39;%$&#123;search&#125;%&#39;</span><br><span class="line">           &lt;&#x2F;if&gt;</span><br><span class="line">        &lt;if test&#x3D;&quot;length !&#x3D; &#39;&#39;&quot;&gt;</span><br><span class="line">            LIMIT #&#123;start&#125;,#&#123;length&#125;</span><br><span class="line">        &lt;&#x2F;if&gt;</span><br><span class="line">    &lt;&#x2F;select&gt;</span><br><span class="line">  &lt;&#x2F;mapper&gt;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>honwan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://honwan.xyz/Springboot%E6%95%B4%E5%90%88mybatis%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="SpringBoot整合mybatis简单学习笔记">http://honwan.xyz/Springboot整合mybatis操作mysql数据库学习笔记.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/react%E8%BA%BA%E5%9D%91%E8%AE%B0.html" rel="prev" title="react学习笔记">
+      <i class="fa fa-chevron-left"></i> react学习笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/vue%E8%BA%BA%E5%9D%91.html" rel="next" title="vue躺坑之常用操作">
+      vue躺坑之常用操作 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%B6%E3%80%81%E5%B7%A5%E5%85%B7%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">零、工具：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%96%B0%E5%BB%BASpringboot%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.</span> <span class="nav-text">一、新建Springboot项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E5%BC%80%E5%90%AF%E7%83%AD%E6%9B%B4%E6%96%B0%EF%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">（二）开启热更新：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%BC%80%E5%A7%8B"><span class="nav-number">4.</span> <span class="nav-text">（三）开始</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BAmysql%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.1.</span> <span class="nav-text">1.创建mysql数据库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3%E7%89%88%EF%BC%9A"><span class="nav-number">5.</span> <span class="nav-text">注解版：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%89%88%EF%BC%9A"><span class="nav-number">6.</span> <span class="nav-text">配置文件版：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#log4j%E5%88%9D%E5%A7%8B%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="nav-number">6.1.</span> <span class="nav-text">log4j初始配置：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mysql-%E8%81%94%E5%90%88%E6%9F%A5%E8%AF%A2%EF%BC%9A"><span class="nav-number">6.2.</span> <span class="nav-text">mysql 联合查询：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">honwan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">honwan</span>
+</div>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=i;var e=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}i(),n.addEventListener("scroll",function(){var t,e;t=i,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

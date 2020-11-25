@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+<meta name="yandex-verification" content="702286bed9378846" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="zBJedaisP__2UhNxkI6WXJnaT">
+  <meta name="msvalidate.01" content="D969DF6E598E54872694D826CCFE7410">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://honwan.xyz').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="hexo默认github page,比较慢；目前大家使用的做法主要有coding，github 双部署，netlify，cloudflare，zeit和jsdelivr等方法；我主要选择zeit，速度快且可以让百度爬虫收录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="netlify和cloudflare与zeit搭配jsdelivr给Hexo博客cdn加速对比">
+<meta property="og:url" content="http://honwan.xyz/netlify%E5%92%8Ccloudflare%E4%B8%8Ezeit%E6%90%AD%E9%85%8Djsdelivr%E7%BB%99Hexo%E5%8D%9A%E5%AE%A2cdn%E5%8A%A0%E9%80%9F%E5%AF%B9%E6%AF%94.html">
+<meta property="og:site_name" content="honwan">
+<meta property="og:description" content="hexo默认github page,比较慢；目前大家使用的做法主要有coding，github 双部署，netlify，cloudflare，zeit和jsdelivr等方法；我主要选择zeit，速度快且可以让百度爬虫收录。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-23T13:39:49.433Z">
+<meta property="article:modified_time" content="2020-03-17T04:55:23.850Z">
+<meta property="article:author" content="honwan">
+<meta property="article:tag" content="cdn加速">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://honwan.xyz/netlify%E5%92%8Ccloudflare%E4%B8%8Ezeit%E6%90%AD%E9%85%8Djsdelivr%E7%BB%99Hexo%E5%8D%9A%E5%AE%A2cdn%E5%8A%A0%E9%80%9F%E5%AF%B9%E6%AF%94.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>netlify和cloudflare与zeit搭配jsdelivr给Hexo博客cdn加速对比 | honwan</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BRSRB4XMYT"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-BRSRB4XMYT');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">honwan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://honwan.xyz/netlify%E5%92%8Ccloudflare%E4%B8%8Ezeit%E6%90%AD%E9%85%8Djsdelivr%E7%BB%99Hexo%E5%8D%9A%E5%AE%A2cdn%E5%8A%A0%E9%80%9F%E5%AF%B9%E6%AF%94.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="honwan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="honwan">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          netlify和cloudflare与zeit搭配jsdelivr给Hexo博客cdn加速对比
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-23 21:39:49" itemprop="dateCreated datePublished" datetime="2020-11-23T21:39:49+08:00">2020-11-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-17 12:55:23" itemprop="dateModified" datetime="2020-03-17T12:55:23+08:00">2020-03-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>hexo默认github page,比较慢；目前大家使用的做法主要有coding，github 双部署，netlify，cloudflare，zeit和jsdelivr等方法；<br>我主要选择zeit，速度快且可以让百度爬虫收录。</p>
+<a id="more"></a> 
+<h2 id="一、分类："><a href="#一、分类：" class="headerlink" title="一、分类："></a>一、分类：</h2><p>zeit与netlify都属于copy一份你github的博客文件，然后在它给你的空间新开一个page博客页面，同时提供cdn加速。<br>部署比较简单，用GitHub登陆授权后一直往下点就行了。然后改dns配置域名。</p>
+<h3 id="1-zeit："><a href="#1-zeit：" class="headerlink" title="1.zeit："></a>1.zeit：</h3><p>参考这篇文章：<a target="_blank" rel="noopener" href="https://zpjiang.me/2020/01/15/let-baidu-index-github-page">解决百度爬虫无法爬取 Github Pages 个人博客的问题</a>；请求的是台湾的服务器</p>
+<h3 id="2-netlify："><a href="#2-netlify：" class="headerlink" title="2.netlify："></a>2.netlify：</h3><p>参考这篇文章:<br><a target="_blank" rel="noopener" href="https://io-oi.me/tech/deploy-static-site-to-netlify">将 Hexo 静态博客部署到 Netlify</a>；请求的是新加坡的服务器</p>
+<h3 id="3-cloudflare"><a href="#3-cloudflare" class="headerlink" title="3.cloudflare"></a>3.cloudflare</h3><p>cloudflare,直接给你的网速cdn加速。<br>只需要去官网添加博客网站，然后去域名网站改DNS。</p>
+<h3 id="4-jsdelivr"><a href="#4-jsdelivr" class="headerlink" title="4.jsdelivr"></a>4.jsdelivr</h3><p>jsdelivr也是cdn加速商。我博客用的next主题内置了。直接去<a target="_blank" rel="noopener" href="https://www.cnblogs.com/lfri/p/12221963.html">next主题配置文件</a>把注释去掉就可以使用了。但只是静态资源</p>
+<h2 id="二、博客打开速度对比"><a href="#二、博客打开速度对比" class="headerlink" title="二、博客打开速度对比"></a>二、<a target="_blank" rel="noopener" href="http://dwz.date/wdx">博客</a>打开速度对比</h2><h4 id="下午"><a href="#下午" class="headerlink" title="下午:"></a>下午:</h4><p>左边原github page，右边zeit</p>
+<div align=center>![avatar](/uploads/cdn/1.png)
+
+<p>netlify</p>
+<div align=center>![avatar](/uploads/cdn/2.png)
+
+<h4 id="晚上："><a href="#晚上：" class="headerlink" title="晚上："></a>晚上：</h4><p>左边原github page，右边zeit</p>
+<div align=center>![avatar](/uploads/cdn/3.png)
+
+<p>netlify</p>
+<div align=center>![avatar](/uploads/cdn/4.png)
+
+<h4 id="早上："><a href="#早上：" class="headerlink" title="早上："></a>早上：</h4><p>原cloudflare</p>
+<div align=center>![avatar](/uploads/cdn/8.png)
+
+<p>左边cloudflare+jsdelivr，右边zeit+jsdelivr</p>
+<div align=center>![avatar](/uploads/cdn/7.png)
+
+<p>另一个测速网站打开速度对比<br>zeit搭配jsdelivr：</p>
+<div align=center>![avatar](/uploads/cdn/6.png)
+
+<p>cloudflare：</p>
+<div align=center>![avatar](/uploads/cdn/5.png)
+
+<p>本地F12,联通打开速度对比：netlify 1.6s; zeit:1.8s;CF：2.25s</p>
+<p>总结：总体zeit搭配jsdelivr速度最好，同时可以让百度收录，但是流量不多，适合我们这类小博客；<br>netlify站长之家速度不咋地，但是我这网络打开可以。与cloudflare速度一般，但是也够用。流量多。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>honwan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://honwan.xyz/netlify%E5%92%8Ccloudflare%E4%B8%8Ezeit%E6%90%AD%E9%85%8Djsdelivr%E7%BB%99Hexo%E5%8D%9A%E5%AE%A2cdn%E5%8A%A0%E9%80%9F%E5%AF%B9%E6%AF%94.html" title="netlify和cloudflare与zeit搭配jsdelivr给Hexo博客cdn加速对比">http://honwan.xyz/netlify和cloudflare与zeit搭配jsdelivr给Hexo博客cdn加速对比.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/cdn%E5%8A%A0%E9%80%9F/" rel="tag"># cdn加速</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E7%99%BE%E5%BA%A6%E6%96%87%E5%BA%93%E8%B1%86%E4%B8%81%E5%85%8D%E4%B8%8B%E8%BD%BD%E5%88%B8%E5%85%8D%E8%B4%B9%E4%B8%8B%E8%BD%BD.html" rel="prev" title="百度文库豆丁付费文件免下载券/免费下载/破解">
+      <i class="fa fa-chevron-left"></i> 百度文库豆丁付费文件免下载券/免费下载/破解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E5%8F%91%E5%8D%A1%E7%BD%91.html" rel="next" title="发卡网收集">
+      发卡网收集 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%88%86%E7%B1%BB%EF%BC%9A"><span class="nav-number">1.</span> <span class="nav-text">一、分类：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-zeit%EF%BC%9A"><span class="nav-number">1.1.</span> <span class="nav-text">1.zeit：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-netlify%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">2.netlify：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-cloudflare"><span class="nav-number">1.3.</span> <span class="nav-text">3.cloudflare</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-jsdelivr"><span class="nav-number">1.4.</span> <span class="nav-text">4.jsdelivr</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%8D%9A%E5%AE%A2%E6%89%93%E5%BC%80%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94"><span class="nav-number">2.</span> <span class="nav-text">二、博客打开速度对比</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E5%8D%88"><span class="nav-number">2.0.1.</span> <span class="nav-text">下午:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%99%9A%E4%B8%8A%EF%BC%9A"><span class="nav-number">2.0.2.</span> <span class="nav-text">晚上：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A9%E4%B8%8A%EF%BC%9A"><span class="nav-number">2.0.3.</span> <span class="nav-text">早上：</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">honwan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">honwan</span>
+</div>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=i;var e=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}i(),n.addEventListener("scroll",function(){var t,e;t=i,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>

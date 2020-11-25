@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+<meta name="yandex-verification" content="702286bed9378846" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="zBJedaisP__2UhNxkI6WXJnaT">
+  <meta name="msvalidate.01" content="D969DF6E598E54872694D826CCFE7410">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://honwan.xyz').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="NFC模拟门禁卡，只是提供技术教程，请不要用于违法犯罪行为！ 需要事先购买ACR122U,读卡和写卡也可以使用有NFC功能的手机：使用软件Mifare clasic tools这个软件读取和写入卡；前面部分可以自己购买UID空白卡，读取破解出卡的信息之后直接写入空白卡就可以；只是写入小米手环麻烦点，因为目前小米手环和小米手机的门禁卡模拟功能，不支持直接模拟加密卡，因此需要先模拟未加密的卡，需要先读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NFC模拟门禁">
+<meta property="og:url" content="http://honwan.xyz/NFC%E6%A8%A1%E6%8B%9F%E9%97%A8%E7%A6%81.html">
+<meta property="og:site_name" content="honwan">
+<meta property="og:description" content="NFC模拟门禁卡，只是提供技术教程，请不要用于违法犯罪行为！ 需要事先购买ACR122U,读卡和写卡也可以使用有NFC功能的手机：使用软件Mifare clasic tools这个软件读取和写入卡；前面部分可以自己购买UID空白卡，读取破解出卡的信息之后直接写入空白卡就可以；只是写入小米手环麻烦点，因为目前小米手环和小米手机的门禁卡模拟功能，不支持直接模拟加密卡，因此需要先模拟未加密的卡，需要先读">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-23T13:39:49.336Z">
+<meta property="article:modified_time" content="2018-12-06T05:12:51.688Z">
+<meta property="article:author" content="honwan">
+<meta property="article:tag" content="NFC">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://honwan.xyz/NFC%E6%A8%A1%E6%8B%9F%E9%97%A8%E7%A6%81.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>NFC模拟门禁 | honwan</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BRSRB4XMYT"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-BRSRB4XMYT');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">honwan</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://honwan.xyz/NFC%E6%A8%A1%E6%8B%9F%E9%97%A8%E7%A6%81.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="honwan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="honwan">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          NFC模拟门禁
+        </h1>
+
+        <div class="post-meta">
+        
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-23 21:39:49" itemprop="dateCreated datePublished" datetime="2020-11-23T21:39:49+08:00">2020-11-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-12-06 13:12:51" itemprop="dateModified" datetime="2018-12-06T13:12:51+08:00">2018-12-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>NFC模拟门禁卡，只是提供技术教程，请不要用于违法犯罪行为！</p>
+<p>需要事先购买ACR122U,读卡和写卡也可以使用有NFC功能的手机：使用软件Mifare clasic tools这个软件读取和写入卡；<br>前面部分可以自己购买UID空白卡，读取破解出卡的信息之后直接写入空白卡就可以；<br>只是写入小米手环麻烦点，因为目前小米手环和小米手机的门禁卡模拟功能，不支持直接模拟加密卡，因此需要先模拟未加密的卡，需要先读取出需要模拟的卡数据，清除加密的数据，变成未加密的，然后使用小米手环三NFC版模拟；再写入加密数据；</p>
+<a id="more"></a> 
+
+  <div align=center>![avatar](/uploads/menjin/1.png)
+
+
+<h3 id="1-先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika-dump"><a href="#1-先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika-dump" class="headerlink" title="1.先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika.dump"></a>1.先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika.dump</h3>  <div align=center>![avatar](/uploads/menjin/2.png)
+  <div align=center>![avatar](/uploads/menjin/3.png)
+
+
+<h3 id="2-然后放入UID卡，点击Initial-connect-，打开刚才读取的dump文件，记下key-直接点击编辑key改为F，这样制作无密码的dump文件，另存为123-dump"><a href="#2-然后放入UID卡，点击Initial-connect-，打开刚才读取的dump文件，记下key-直接点击编辑key改为F，这样制作无密码的dump文件，另存为123-dump" class="headerlink" title="2. 然后放入UID卡，点击Initial connect ，打开刚才读取的dump文件，记下key,直接点击编辑key改为F，这样制作无密码的dump文件，另存为123.dump"></a>2. 然后放入UID卡，点击Initial connect ，打开刚才读取的dump文件，记下key,直接点击编辑key改为F，这样制作无密码的dump文件，另存为123.dump</h3>  <div align=center>![avatar](/uploads/menjin/4.png)
+
+<h3 id="3-打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123-Dump文件，写入卡中；从而得到无密码的卡"><a href="#3-打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123-Dump文件，写入卡中；从而得到无密码的卡" class="headerlink" title="3.打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123.Dump文件，写入卡中；从而得到无密码的卡"></a>3.打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123.Dump文件，写入卡中；从而得到无密码的卡</h3>  <div align=center>![avatar](/uploads/menjin/5.png)
+
+
+<h3 id="4-然后使用小米手环模拟这个未加密的卡；"><a href="#4-然后使用小米手环模拟这个未加密的卡；" class="headerlink" title="4.然后使用小米手环模拟这个未加密的卡；"></a>4.然后使用小米手环模拟这个未加密的卡；</h3><h3 id="5-使用英文版本的写卡工具：普通卡复制工具-exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika-dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，"><a href="#5-使用英文版本的写卡工具：普通卡复制工具-exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika-dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，" class="headerlink" title="5.使用英文版本的写卡工具：普通卡复制工具.exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika.dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，"></a>5.使用英文版本的写卡工具：普通卡复制工具.exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika.dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，</h3>  <div align=center>![avatar](/uploads/menjin/6.png)
+
+
+<p>厂商信息：0块0区后面部分不一样，没有影响；<br>只需要后面的一样；</p>
+<p>但是手环仍然无法读卡开门；<br>将写入到手环的数据再读取出来写入新的UID卡中，发现可以开门；因此怀疑和读卡设备机器有关；但是数据是已经写入到手环中了的；</p>
+<p>部分软件百度网盘链接：<br>链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1G58728J0lU3mNdYT2riUhQ">https://pan.baidu.com/s/1G58728J0lU3mNdYT2riUhQ</a> 提取码: b9hr </p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>honwan
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://honwan.xyz/NFC%E6%A8%A1%E6%8B%9F%E9%97%A8%E7%A6%81.html" title="NFC模拟门禁">http://honwan.xyz/NFC模拟门禁.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/NFC/" rel="tag"># NFC</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/cytoscape.html" rel="prev" title="cytoscape绘制相互作用图">
+      <i class="fa fa-chevron-left"></i> cytoscape绘制相互作用图
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E4%B8%8A%E4%BC%A0%E4%BB%A3%E7%A0%81%E5%88%B0github.html" rel="next" title="上传代码到github">
+      上传代码到github <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%85%88%E4%BD%BF%E7%94%A8%E7%A0%B4%E8%A7%A3%E8%BD%AF%E4%BB%B6%E8%AF%BB%E5%8D%A1%EF%BC%8C%E6%94%BE%E5%85%A5%E5%8D%A1%E7%89%87%EF%BC%8C%E7%82%B9%E5%87%BB%E5%BC%80%E5%A7%8B%E7%A0%B4%E8%A7%A3%EF%BC%8C%E5%BE%97%E5%88%B0dump%E6%96%87%E4%BB%B6%EF%BC%8C%E4%B8%BAlinshika-dump"><span class="nav-number">1.</span> <span class="nav-text">1.先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika.dump</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%84%B6%E5%90%8E%E6%94%BE%E5%85%A5UID%E5%8D%A1%EF%BC%8C%E7%82%B9%E5%87%BBInitial-connect-%EF%BC%8C%E6%89%93%E5%BC%80%E5%88%9A%E6%89%8D%E8%AF%BB%E5%8F%96%E7%9A%84dump%E6%96%87%E4%BB%B6%EF%BC%8C%E8%AE%B0%E4%B8%8Bkey-%E7%9B%B4%E6%8E%A5%E7%82%B9%E5%87%BB%E7%BC%96%E8%BE%91key%E6%94%B9%E4%B8%BAF%EF%BC%8C%E8%BF%99%E6%A0%B7%E5%88%B6%E4%BD%9C%E6%97%A0%E5%AF%86%E7%A0%81%E7%9A%84dump%E6%96%87%E4%BB%B6%EF%BC%8C%E5%8F%A6%E5%AD%98%E4%B8%BA123-dump"><span class="nav-number">2.</span> <span class="nav-text">2. 然后放入UID卡，点击Initial connect ，打开刚才读取的dump文件，记下key,直接点击编辑key改为F，这样制作无密码的dump文件，另存为123.dump</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%89%93%E5%BC%80%E5%86%99%E5%8D%A1%E5%B7%A5%E5%85%B7%EF%BC%9A%E6%94%BE%E5%85%A5%E6%96%B0%E7%9A%84%E7%A9%BA%E7%99%BD%E5%8D%A1%EF%BC%8CUID%E5%8D%A1%EF%BC%8C%E7%82%B9%E5%87%BB%E5%88%9D%E5%A7%8B%E5%8C%96%EF%BC%8C%E8%BF%9E%E6%8E%A5%EF%BC%8C%E9%80%89%E6%8B%A9123-Dump%E6%96%87%E4%BB%B6%EF%BC%8C%E5%86%99%E5%85%A5%E5%8D%A1%E4%B8%AD%EF%BC%9B%E4%BB%8E%E8%80%8C%E5%BE%97%E5%88%B0%E6%97%A0%E5%AF%86%E7%A0%81%E7%9A%84%E5%8D%A1"><span class="nav-number">3.</span> <span class="nav-text">3.打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123.Dump文件，写入卡中；从而得到无密码的卡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%84%B6%E5%90%8E%E4%BD%BF%E7%94%A8%E5%B0%8F%E7%B1%B3%E6%89%8B%E7%8E%AF%E6%A8%A1%E6%8B%9F%E8%BF%99%E4%B8%AA%E6%9C%AA%E5%8A%A0%E5%AF%86%E7%9A%84%E5%8D%A1%EF%BC%9B"><span class="nav-number">4.</span> <span class="nav-text">4.然后使用小米手环模拟这个未加密的卡；</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E4%BD%BF%E7%94%A8%E8%8B%B1%E6%96%87%E7%89%88%E6%9C%AC%E7%9A%84%E5%86%99%E5%8D%A1%E5%B7%A5%E5%85%B7%EF%BC%9A%E6%99%AE%E9%80%9A%E5%8D%A1%E5%A4%8D%E5%88%B6%E5%B7%A5%E5%85%B7-exe%EF%BC%8C%E6%94%BE%E5%85%A5%E6%89%8B%E7%8E%AF%E5%88%B0%E5%86%99%E5%8D%A1%E5%B7%A5%E5%85%B7%E4%B8%8A%EF%BC%8C%E5%AF%BC%E5%85%A5%E4%B8%80%E5%BC%80%E5%A7%8B%E7%94%A8%E8%AF%BB%E5%8D%A1%E5%B7%A5%E5%85%B7%E8%AF%BB%E5%8F%96%E7%9A%84%E8%A6%81%E5%A4%8D%E5%88%B6%E7%9A%84%E5%8D%A1%E7%9A%84dump%E6%96%87%E4%BB%B6%EF%BC%8Clinshika-dump%EF%BC%8C%E5%86%99%E5%8D%A1%E5%88%B0%E6%89%8B%E7%8E%AF%EF%BC%8C%E4%BD%BF%E7%94%A8%E8%AF%BB%E5%8D%A1%E8%AF%BB%E5%8F%96%E6%89%8B%E7%8E%AF%E5%86%85%E6%96%87%E4%BB%B6%EF%BC%8C%E7%9C%8B%E6%98%AF%E5%90%A6%E4%B8%8E%E4%B8%80%E5%BC%80%E5%A7%8B%E7%9A%84%E4%B8%80%E6%A0%B7%EF%BC%9B%E5%A6%82%E6%9E%9C%E4%B8%8D%E6%88%90%E5%8A%9F%EF%BC%8C%E5%8F%8D%E5%A4%8D%E5%A4%9A%E6%AC%A1%E5%86%99%EF%BC%8C"><span class="nav-number">5.</span> <span class="nav-text">5.使用英文版本的写卡工具：普通卡复制工具.exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika.dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">honwan</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">honwan</span>
+</div>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=i;var e=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}i(),n.addEventListener("scroll",function(){var t,e;t=i,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body>
+</html>
