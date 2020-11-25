@@ -24,7 +24,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://honwan.xyz').hostname,
+    hostname: new URL('http://hongwan.xyz').hostname,
     root: '/',
     scheme: 'Pisces',
     version: '7.6.0',
@@ -54,7 +54,7 @@
   <meta name="description" content="内网穿透可以让我们在外网访问校内网资源，相当于一个非官方的vpn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="frp,ngrok搭配shadowsocks内网穿透与RPD远程桌面">
-<meta property="og:url" content="http://honwan.xyz/frp,ngrok%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F.html">
+<meta property="og:url" content="http://hongwan.xyz/frp,ngrok%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F.html">
 <meta property="og:site_name" content="honwan">
 <meta property="og:description" content="内网穿透可以让我们在外网访问校内网资源，相当于一个非官方的vpn">
 <meta property="og:locale" content="zh_CN">
@@ -64,7 +64,7 @@
 <meta property="article:tag" content="内网穿透">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://honwan.xyz/frp,ngrok%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F.html">
+<link rel="canonical" href="http://hongwan.xyz/frp,ngrok%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F.html">
 
 
 <script id="page-configurations">
@@ -199,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://honwan.xyz/frp,ngrok%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F.html">
+    <link itemprop="mainEntityOfPage" href="http://hongwan.xyz/frp,ngrok%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -257,8 +257,8 @@
 <h3 id="访问ssh：命令登录或xshell访问"><a href="#访问ssh：命令登录或xshell访问" class="headerlink" title="访问ssh：命令登录或xshell访问"></a>访问ssh：命令登录或xshell访问</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -oPort&#x3D;[ssh port]  username@ip</span><br></pre></td></tr></table></figure>
 
 <h3 id="RDP远程桌面"><a href="#RDP远程桌面" class="headerlink" title="RDP远程桌面"></a>RDP远程桌面</h3><p>被远程电脑需要设置为可被远程</p>
-<div align=center>![avatar](/uploads/frp/4.png)
-<div align=center>![avatar](/uploads/frp/5.png)
+<div align="center">![avatar](/uploads/frp/4.png)
+<div align="center">![avatar](/uploads/frp/5.png)
 
 
 <h2 id="shadowsocks隧道设置"><a href="#shadowsocks隧道设置" class="headerlink" title="shadowsocks隧道设置"></a>shadowsocks隧道设置</h2><p>如果觉得每台机器都要分别设置太麻烦，可以使用shadowsocks进行统一接管；</p>
@@ -280,19 +280,19 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssserver -c &#x2F;etc&#x2F;shadowsocks.json</span><br></pre></td></tr></table></figure>
 <p>运行如果报EVP_CIPHER_CTX_cleanup错误，则需要修改dist-packages/shadowsocks/crypto/openssl.py这个文件里的 cleanup 替换为reset.参考：<a href="ttps://www.iteye.com/blog/haohetao-2423078">shadowsocks2.8.2启动报未定义符号：EVP_CIPHER_CTX_cleanup错误</a><br>然后可以放到开机自启命令中，参考<a target="_blank" rel="noopener" href="https://www.4spaces.org/install-shadowsocks-on-centos-7/">https://www.4spaces.org/install-shadowsocks-on-centos-7/</a></p>
 <h4 id="防火墙记得开放端口！"><a href="#防火墙记得开放端口！" class="headerlink" title="防火墙记得开放端口！"></a>防火墙记得开放端口！</h4><h3 id="3-需要操作的电脑装shadowsocks客户端"><a href="#3-需要操作的电脑装shadowsocks客户端" class="headerlink" title="3.需要操作的电脑装shadowsocks客户端"></a>3.需要操作的电脑装shadowsocks客户端</h3><h4 id="ss客户端："><a href="#ss客户端：" class="headerlink" title="ss客户端："></a>ss客户端：</h4><p><a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks-windows/releases">在CENTOS 7上建造Shadowsocks图文教程</a></p>
-<div align=center>![avatar](/uploads/frp/1.png)
+<div align="center">![avatar](/uploads/frp/1.png)
 ip填入frpc的公网IP地址，其它按照json配置填写。
 
 <p>ssr开启全局模式，同时如果要访问192.*，127.*这些网址，需要去掉ss规则里面:user.rule文件最后，删除对应行<br>同时，如果内网机器有其它代理软件也要去除绕过局域网的规则</p>
-<h4 id="clash客户端"><a href="#clash客户端" class="headerlink" title="clash客户端:"></a>clash客户端:</h4><div align=center>![avatar](/uploads/frp/1.1.png)
+<h4 id="clash客户端"><a href="#clash客户端" class="headerlink" title="clash客户端:"></a>clash客户端:</h4><div align="center">![avatar](/uploads/frp/1.1.png)
 
 <p>点击General的Genaral YML，编辑配置文件去除绕过局域网的规则</p>
-<div align=center>![avatar](/uploads/frp/2.png)
+<div align="center">![avatar](/uploads/frp/2.png)
 
 <p>如果不想全局模式，则可以使用clash分流：</p>
 <p>具体使用教程参考另外两篇博客：Clash各版本(win,mac,linux)使用教程(增加规则,搭配Proxy SwitchyOmega)：  <a target="_blank" rel="noopener" href="http://honve.xyz/2019/11/28/clash%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B(%E6%90%AD%E9%85%8DProxy%20SwitchyOmega)/#more">http://honve.xyz/2019/11/28/clash%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B(%E6%90%AD%E9%85%8DProxy%20SwitchyOmega)/#more</a></p>
 <p><a target="_blank" rel="noopener" href="https://honve.xyz/2020/05/17/frp,shadowsocks,clash/">使用clash对frp与shadowsocks内网穿透分流</a></p>
-<h3 id="使用xshell连接服务器，需要设置代理："><a href="#使用xshell连接服务器，需要设置代理：" class="headerlink" title="使用xshell连接服务器，需要设置代理："></a>使用xshell连接服务器，需要设置代理：</h3><div align=center>![avatar](/uploads/frp/3.png)
+<h3 id="使用xshell连接服务器，需要设置代理："><a href="#使用xshell连接服务器，需要设置代理：" class="headerlink" title="使用xshell连接服务器，需要设置代理："></a>使用xshell连接服务器，需要设置代理：</h3><div align="center">![avatar](/uploads/frp/3.png)
 clash的socks5端口为7891
 
 
@@ -316,7 +316,7 @@ clash的socks5端口为7891
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;ngrok -config ngrok.conf -log&#x3D;ngrok.log start  sshtun httptun</span><br></pre></td></tr></table></figure>
 
 <p>最后按快捷键<br>ctrl+A+D</p>
-
+</div></div></div></div></div></div>
     </div>
 
     
@@ -331,7 +331,7 @@ clash的socks5端口为7891
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://honwan.xyz/frp,ngrok%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F.html" title="frp,ngrok搭配shadowsocks内网穿透与RPD远程桌面">http://honwan.xyz/frp,ngrok内网穿透.html</a>
+    <a href="http://hongwan.xyz/frp,ngrok%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F.html" title="frp,ngrok搭配shadowsocks内网穿透与RPD远程桌面">http://hongwan.xyz/frp,ngrok内网穿透.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！

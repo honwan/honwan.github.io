@@ -24,7 +24,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://honwan.xyz').hostname,
+    hostname: new URL('http://hongwan.xyz').hostname,
     root: '/',
     scheme: 'Pisces',
     version: '7.6.0',
@@ -54,7 +54,7 @@
   <meta name="description" content="php其实很方便简单，但是多了之后就容易乱；springmvc 是目前后端最火的框架，而配置比较麻烦，于是有了SpringBoot 省去很多配置，上手更加方便；">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot整合mybatis简单学习笔记">
-<meta property="og:url" content="http://honwan.xyz/Springboot%E6%95%B4%E5%90%88mybatis%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">
+<meta property="og:url" content="http://hongwan.xyz/Springboot%E6%95%B4%E5%90%88mybatis%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">
 <meta property="og:site_name" content="honwan">
 <meta property="og:description" content="php其实很方便简单，但是多了之后就容易乱；springmvc 是目前后端最火的框架，而配置比较麻烦，于是有了SpringBoot 省去很多配置，上手更加方便；">
 <meta property="og:locale" content="zh_CN">
@@ -64,7 +64,7 @@
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://honwan.xyz/Springboot%E6%95%B4%E5%90%88mybatis%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">
+<link rel="canonical" href="http://hongwan.xyz/Springboot%E6%95%B4%E5%90%88mybatis%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">
 
 
 <script id="page-configurations">
@@ -199,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://honwan.xyz/Springboot%E6%95%B4%E5%90%88mybatis%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">
+    <link itemprop="mainEntityOfPage" href="http://hongwan.xyz/Springboot%E6%95%B4%E5%90%88mybatis%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -247,26 +247,26 @@
         <p>php其实很方便简单，但是多了之后就容易乱；<br>springmvc 是目前后端最火的框架，而配置比较麻烦，于是有了SpringBoot 省去很多配置，上手更加方便；</p>
 <a id="more"></a> 
 <h3 id="零、工具："><a href="#零、工具：" class="headerlink" title="零、工具："></a>零、工具：</h3><p>(1)IDEA:插件：lombok plugin 、 Mybatis plugin 跳转 、CodeGlance右边栏、Grep console日志区分、JRebel热部署<br>(2)数据库：Navicat Premium<br>(3)请求测试：Postman<br>(4)浏览器插件：WEB前端助手(FeHelper) 方便显示json</p>
-<h3 id="一、新建Springboot项目"><a href="#一、新建Springboot项目" class="headerlink" title="一、新建Springboot项目"></a>一、新建Springboot项目</h3><div align=center>![avatar](/uploads/springboot/1.png)
+<h3 id="一、新建Springboot项目"><a href="#一、新建Springboot项目" class="headerlink" title="一、新建Springboot项目"></a>一、新建Springboot项目</h3><div align="center">![avatar](/uploads/springboot/1.png)
 
-<div align=center>![avatar](/uploads/springboot/2.png)
+<div align="center">![avatar](/uploads/springboot/2.png)
 
-<div align=center>![avatar](/uploads/springboot/3.png)
+<div align="center">![avatar](/uploads/springboot/3.png)
 
-<div align=center>![avatar](/uploads/springboot/4.png)
+<div align="center">![avatar](/uploads/springboot/4.png)
 
 <h3 id="（二）开启热更新："><a href="#（二）开启热更新：" class="headerlink" title="（二）开启热更新："></a>（二）开启热更新：</h3><p>添加依赖：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-boot-devtools&lt;&#x2F;artifactId&gt;</span><br><span class="line">  &lt;optional&gt;true&lt;&#x2F;optional&gt;</span><br><span class="line">&lt;&#x2F;dependency&gt;</span><br></pre></td></tr></table></figure>
 
 <p>File-&gt;setting：</p>
-<div align=center>![avatar](/uploads/springboot/5.png)
+<div align="center">![avatar](/uploads/springboot/5.png)
 
 <p>ctrl+alt+shift+/ 就会出来Registry…</p>
-<div align=center>![avatar](/uploads/springboot/6.png)
+<div align="center">![avatar](/uploads/springboot/6.png)
 
 
 <p>顶部菜单- &gt;Edit Configurations</p>
-<div align=center>![avatar](/uploads/springboot/7.png)
+<div align="center">![avatar](/uploads/springboot/7.png)
 
 
 
@@ -291,11 +291,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">package com.example.demo3.config;</span><br><span class="line">@Configuration</span><br><span class="line">public class DruidConfig &#123;</span><br><span class="line"></span><br><span class="line">@ConfigurationProperties(prefix &#x3D; &quot;spring.datasource&quot;)</span><br><span class="line">@Bean</span><br><span class="line">public DataSource druid() &#123;</span><br><span class="line">  return new DruidDataSource();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line">* 配置Druid的监控</span><br><span class="line">* 1、配置一个管理后台的Servlet</span><br><span class="line">* @return</span><br><span class="line">*&#x2F;</span><br><span class="line">@Bean</span><br><span class="line">public ServletRegistrationBean statViewServlet() &#123;</span><br><span class="line">  ServletRegistrationBean bean &#x3D; new ServletRegistrationBean(new StatViewServlet(), &quot;&#x2F;druid&#x2F;*&quot;);</span><br><span class="line">  Map&lt;String, String&gt; initParams &#x3D; new HashMap&lt;&gt;(4);</span><br><span class="line">  initParams.put(&quot;loginUsername&quot;, &quot;admin&quot;);</span><br><span class="line">  initParams.put(&quot;loginPassword&quot;, &quot;123456&quot;);</span><br><span class="line">  &#x2F;&#x2F;默认就是允许所有访问</span><br><span class="line">  initParams.put(&quot;allow&quot;, &quot;&quot;);</span><br><span class="line">  initParams.put(&quot;deny&quot;, &quot;192.168.15.21&quot;);</span><br><span class="line">  bean.setInitParameters(initParams);</span><br><span class="line">  return bean;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line">* 2、配置一个web监控的filter</span><br><span class="line">* @return</span><br><span class="line">*&#x2F;</span><br><span class="line">@Bean</span><br><span class="line">public FilterRegistrationBean webStatFilter() &#123;</span><br><span class="line">  FilterRegistrationBean bean &#x3D; new FilterRegistrationBean();</span><br><span class="line">  bean.setFilter(new WebStatFilter());</span><br><span class="line">  Map&lt;String, String&gt; initParams &#x3D; new HashMap&lt;&gt;(1);</span><br><span class="line">  initParams.put(&quot;exclusions&quot;, &quot;*.js,*.css,&#x2F;druid&#x2F;*&quot;);</span><br><span class="line">  bean.setInitParameters(initParams);</span><br><span class="line">  bean.setUrlPatterns(Arrays.asList(&quot;&#x2F;*&quot;));</span><br><span class="line">  return bean;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="1-创建mysql数据库"><a href="#1-创建mysql数据库" class="headerlink" title="1.创建mysql数据库"></a>1.创建mysql数据库</h4><p>department表:</p>
-<div align=center>![avatar](/uploads/springboot/8.png)
+<div align="center">![avatar](/uploads/springboot/8.png)
 
 
 <p>employee表：</p>
-<div align=center>![avatar](/uploads/springboot/9.png)
+<div align="center">![avatar](/uploads/springboot/9.png)
 
 
 <h3 id="注解版："><a href="#注解版：" class="headerlink" title="注解版："></a>注解版：</h3><p>**   2.创建bean ** </p>
@@ -354,7 +354,7 @@
 
 
 <p>完整：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;mapper namespace&#x3D;&quot;com.atguigu.springboot.mapper.SearchMapper&quot;&gt;</span><br><span class="line">    &lt;resultMap type&#x3D;&quot;com.atguigu.springboot.bean.GeneInfo&quot; id&#x3D;&quot;SearchMapper&quot;&gt;</span><br><span class="line">        &lt;id column&#x3D;&quot;geneid&quot; property&#x3D;&quot;geneid&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;genename&quot; property&#x3D;&quot;genename&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;strand&quot; property&#x3D;&quot;strand&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;descr&quot; property&#x3D;&quot;descr&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;Entrezid&quot; property&#x3D;&quot;Entrezid&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;Ensemblid&quot; property&#x3D;&quot;Ensemblid&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;Uniprotid&quot; property&#x3D;&quot;Uniprotid&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;collection property&#x3D;&quot;gene2Peaks&quot; ofType&#x3D;&quot;com.atguigu.springboot.bean.Gene2Peak&quot;&gt;</span><br><span class="line">            &lt;id column&#x3D;&quot;g2ppeakid&quot; property&#x3D;&quot;g2ppeakid&quot;&#x2F;&gt;</span><br><span class="line">            &lt;result column&#x3D;&quot;g2pgeneid&quot; property&#x3D;&quot;g2pgeneid&quot;&#x2F;&gt;</span><br><span class="line">            &lt;association property&#x3D;&quot;peakInfos&quot; javaType&#x3D;&quot;com.atguigu.springboot.bean.PeakInfo&quot;&gt;</span><br><span class="line">                &lt;id column&#x3D;&quot;peakid&quot; property&#x3D;&quot;peakid&quot;&gt;&lt;&#x2F;id&gt;</span><br><span class="line">                &lt;id column&#x3D;&quot;seq&quot; property&#x3D;&quot;seq&quot;&gt;&lt;&#x2F;id&gt;</span><br><span class="line">                &lt;id column&#x3D;&quot;num&quot; property&#x3D;&quot;num&quot;&gt;&lt;&#x2F;id&gt;</span><br><span class="line">            &lt;&#x2F;association&gt;</span><br><span class="line">        &lt;&#x2F;collection&gt;</span><br><span class="line">    &lt;&#x2F;resultMap&gt;</span><br><span class="line"></span><br><span class="line">    &lt;select id&#x3D;&quot;getSearch&quot; resultType&#x3D;&quot;java.util.HashMap&quot;&gt;</span><br><span class="line">        SELECT geneinfo.*,peakinfo.* FROM geneinfo ,gene2peak,peakinfo where geneid&#x3D;g2pgeneid AND peakid &#x3D; g2ppeakid</span><br><span class="line">        &lt;if test&#x3D;&quot;search !&#x3D; &#39;&#39;&quot;&gt;</span><br><span class="line">            AND genename LIKE &#39;%$&#123;search&#125;%&#39; OR Entrezid LIKE &#39;%$&#123;search&#125;%&#39; OR strand LIKE &#39;%$&#123;search&#125;%&#39;</span><br><span class="line">           &lt;&#x2F;if&gt;</span><br><span class="line">        &lt;if test&#x3D;&quot;length !&#x3D; &#39;&#39;&quot;&gt;</span><br><span class="line">            LIMIT #&#123;start&#125;,#&#123;length&#125;</span><br><span class="line">        &lt;&#x2F;if&gt;</span><br><span class="line">    &lt;&#x2F;select&gt;</span><br><span class="line">  &lt;&#x2F;mapper&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;mapper namespace&#x3D;&quot;com.atguigu.springboot.mapper.SearchMapper&quot;&gt;</span><br><span class="line">    &lt;resultMap type&#x3D;&quot;com.atguigu.springboot.bean.GeneInfo&quot; id&#x3D;&quot;SearchMapper&quot;&gt;</span><br><span class="line">        &lt;id column&#x3D;&quot;geneid&quot; property&#x3D;&quot;geneid&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;genename&quot; property&#x3D;&quot;genename&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;strand&quot; property&#x3D;&quot;strand&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;descr&quot; property&#x3D;&quot;descr&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;Entrezid&quot; property&#x3D;&quot;Entrezid&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;Ensemblid&quot; property&#x3D;&quot;Ensemblid&quot;&#x2F;&gt;</span><br><span class="line">        &lt;result column&#x3D;&quot;Uniprotid&quot; property&#x3D;&quot;Uniprotid&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">        &lt;collection property&#x3D;&quot;gene2Peaks&quot; ofType&#x3D;&quot;com.atguigu.springboot.bean.Gene2Peak&quot;&gt;</span><br><span class="line">            &lt;id column&#x3D;&quot;g2ppeakid&quot; property&#x3D;&quot;g2ppeakid&quot;&#x2F;&gt;</span><br><span class="line">            &lt;result column&#x3D;&quot;g2pgeneid&quot; property&#x3D;&quot;g2pgeneid&quot;&#x2F;&gt;</span><br><span class="line">            &lt;association property&#x3D;&quot;peakInfos&quot; javaType&#x3D;&quot;com.atguigu.springboot.bean.PeakInfo&quot;&gt;</span><br><span class="line">                &lt;id column&#x3D;&quot;peakid&quot; property&#x3D;&quot;peakid&quot;&gt;&lt;&#x2F;id&gt;</span><br><span class="line">                &lt;id column&#x3D;&quot;seq&quot; property&#x3D;&quot;seq&quot;&gt;&lt;&#x2F;id&gt;</span><br><span class="line">                &lt;id column&#x3D;&quot;num&quot; property&#x3D;&quot;num&quot;&gt;&lt;&#x2F;id&gt;</span><br><span class="line">            &lt;&#x2F;association&gt;</span><br><span class="line">        &lt;&#x2F;collection&gt;</span><br><span class="line">    &lt;&#x2F;resultMap&gt;</span><br><span class="line"></span><br><span class="line">    &lt;select id&#x3D;&quot;getSearch&quot; resultType&#x3D;&quot;java.util.HashMap&quot;&gt;</span><br><span class="line">        SELECT geneinfo.*,peakinfo.* FROM geneinfo ,gene2peak,peakinfo where geneid&#x3D;g2pgeneid AND peakid &#x3D; g2ppeakid</span><br><span class="line">        &lt;if test&#x3D;&quot;search !&#x3D; &#39;&#39;&quot;&gt;</span><br><span class="line">            AND genename LIKE &#39;%$&#123;search&#125;%&#39; OR Entrezid LIKE &#39;%$&#123;search&#125;%&#39; OR strand LIKE &#39;%$&#123;search&#125;%&#39;</span><br><span class="line">           &lt;&#x2F;if&gt;</span><br><span class="line">        &lt;if test&#x3D;&quot;length !&#x3D; &#39;&#39;&quot;&gt;</span><br><span class="line">            LIMIT #&#123;start&#125;,#&#123;length&#125;</span><br><span class="line">        &lt;&#x2F;if&gt;</span><br><span class="line">    &lt;&#x2F;select&gt;</span><br><span class="line">  &lt;&#x2F;mapper&gt;</span><br></pre></td></tr></table></figure></div></div></div></div></div></div></div></div></div>
     </div>
 
     
@@ -369,7 +369,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://honwan.xyz/Springboot%E6%95%B4%E5%90%88mybatis%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="SpringBoot整合mybatis简单学习笔记">http://honwan.xyz/Springboot整合mybatis操作mysql数据库学习笔记.html</a>
+    <a href="http://hongwan.xyz/Springboot%E6%95%B4%E5%90%88mybatis%E6%93%8D%E4%BD%9Cmysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html" title="SpringBoot整合mybatis简单学习笔记">http://hongwan.xyz/Springboot整合mybatis操作mysql数据库学习笔记.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！

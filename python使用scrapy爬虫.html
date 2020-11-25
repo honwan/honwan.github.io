@@ -24,7 +24,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://honwan.xyz').hostname,
+    hostname: new URL('http://hongwan.xyz').hostname,
     root: '/',
     scheme: 'Pisces',
     version: '7.6.0',
@@ -54,7 +54,7 @@
   <meta name="description" content="python scrapy爬虫 总体思路是： 先测试再进行解析获取下一层的链接">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python使用scrapy爬虫">
-<meta property="og:url" content="http://honwan.xyz/python%E4%BD%BF%E7%94%A8scrapy%E7%88%AC%E8%99%AB.html">
+<meta property="og:url" content="http://hongwan.xyz/python%E4%BD%BF%E7%94%A8scrapy%E7%88%AC%E8%99%AB.html">
 <meta property="og:site_name" content="honwan">
 <meta property="og:description" content="python scrapy爬虫 总体思路是： 先测试再进行解析获取下一层的链接">
 <meta property="og:locale" content="zh_CN">
@@ -64,7 +64,7 @@
 <meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://honwan.xyz/python%E4%BD%BF%E7%94%A8scrapy%E7%88%AC%E8%99%AB.html">
+<link rel="canonical" href="http://hongwan.xyz/python%E4%BD%BF%E7%94%A8scrapy%E7%88%AC%E8%99%AB.html">
 
 
 <script id="page-configurations">
@@ -199,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://honwan.xyz/python%E4%BD%BF%E7%94%A8scrapy%E7%88%AC%E8%99%AB.html">
+    <link itemprop="mainEntityOfPage" href="http://hongwan.xyz/python%E4%BD%BF%E7%94%A8scrapy%E7%88%AC%E8%99%AB.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -252,14 +252,14 @@
 
 <h3 id="进入cmd"><a href="#进入cmd" class="headerlink" title="进入cmd:"></a>进入cmd:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy shell http:&#x2F;&#x2F;www.dmoz.org&#x2F;Computers&#x2F;Programming&#x2F;Languages&#x2F;Python&#x2F;Books&#x2F;</span><br></pre></td></tr></table></figure>
 
-<div align=center>![avatar](/uploads/scrapy/1.png)
+<div align="center">![avatar](/uploads/scrapy/1.png)
 
 
 
 <h4 id="fetch-r”网址”"><a href="#fetch-r”网址”" class="headerlink" title="fetch(r”网址”)"></a>fetch(r”网址”)</h4><h4 id="view-response-检查网页是否符合要求"><a href="#view-response-检查网页是否符合要求" class="headerlink" title="view(response)检查网页是否符合要求"></a>view(response)检查网页是否符合要求</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">response.xpath(&quot;&#x2F;&#x2F;div[@class&#x3D;&#39;site-title&#39;]&quot;)  解析网页</span><br><span class="line">response.xpath(&quot;&#x2F;&#x2F;div[contains(@class, &#39;site-descr&#39;)]&#x2F;text()&quot;)[0].extract()</span><br><span class="line">response.xpath(&quot;&#x2F;&#x2F;div[@class&#x3D;&#39;site-title&#39;]&quot;)[0].xpath(&quot;..&quot;).xpath(&quot;@href&quot;)[0].extract()   # ..返回上层目录，@属性</span><br></pre></td></tr></table></figure>
 
 
-<div align=center>![avatar](/uploads/scrapy/2.png)
+<div align="center">![avatar](/uploads/scrapy/2.png)
 
 
 <h4 id="进入spiders-myproject-spider-py"><a href="#进入spiders-myproject-spider-py" class="headerlink" title="进入spiders\myproject_spider.py"></a>进入spiders\myproject_spider.py</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">import scrapy</span><br><span class="line">from scrapy import Spider</span><br><span class="line">from scrapy.http import Request</span><br><span class="line">class DmozSpider(Spider):</span><br><span class="line">    name&#x3D;&#39;dmoz&#39;</span><br><span class="line">    # allowed_domains&#x3D;[&quot;dmoz.org&quot;]</span><br><span class="line">    start_urls&#x3D;[</span><br><span class="line">        &quot;http:&#x2F;&#x2F;www.dmoz.org&#x2F;Computers&#x2F;Programming&#x2F;Languages&#x2F;Python&#x2F;Books&#x2F;&quot;,</span><br><span class="line">        # &quot;http:&#x2F;&#x2F;www.dmoz.org&#x2F;Computers&#x2F;Programming&#x2F;Languages&#x2F;Python&#x2F;Resources&#x2F;&quot;    #一开始的页面，第一层页面</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    def start_requests(self):  #开始爬虫的网址</span><br><span class="line">        for url in self.start_urls:</span><br><span class="line">            yield Request(url, callback&#x3D;self.parse_aaa)</span><br><span class="line"></span><br><span class="line">    def parse_aaa(self,response):   #第一层页面解析方法和要的操作</span><br><span class="line">    # def parse_aaa(self,response):</span><br><span class="line">        title &#x3D; response.xpath(&quot;&#x2F;&#x2F;div[@class&#x3D;&#39;site-title&#39;]&#x2F;text()&quot;)[0].extract()</span><br><span class="line">        description &#x3D; response.xpath(&quot;&#x2F;&#x2F;div[contains(@class, &#39;site-descr&#39;)]&#x2F;text()&quot;)[0].extract()</span><br><span class="line">        link &#x3D; response.xpath(&quot;&#x2F;&#x2F;div[@class&#x3D;&#39;site-title&#39;]&quot;)[0].xpath(&quot;..&quot;).xpath(&quot;@href&quot;)[0].extract()</span><br><span class="line">        # print title</span><br><span class="line">        # print description</span><br><span class="line">        print link  #获取下一层的链接</span><br><span class="line">        yield Request(link, callback&#x3D;self.parse_bbb)   #再进行下一层的爬虫和解析</span><br><span class="line"></span><br><span class="line">    def parse_bbb(self, response):   </span><br><span class="line">        print &quot;hello&quot;</span><br><span class="line">        bb &#x3D; response.xpath(&quot;&#x2F;&#x2F;a&#x2F;text()&quot;)[0].extract()   </span><br><span class="line">        print bb  </span><br></pre></td></tr></table></figure>
@@ -270,7 +270,7 @@
 <p><a target="_blank" rel="noopener" href="https://www.xncoding.com/2016/03/10/scrapy-02.html">https://www.xncoding.com/2016/03/10/scrapy-02.html</a></p>
 <h3 id="解析器讲解："><a href="#解析器讲解：" class="headerlink" title="解析器讲解："></a>解析器讲解：</h3><p><a target="_blank" rel="noopener" href="https://www.xncoding.com/2016/03/14/scrapy-04.html">https://www.xncoding.com/2016/03/14/scrapy-04.html</a></p>
 <p><a target="_blank" rel="noopener" href="http://cuiqingcai.com/2621.html">http://cuiqingcai.com/2621.html</a></p>
-
+</div></div>
     </div>
 
     
@@ -285,7 +285,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://honwan.xyz/python%E4%BD%BF%E7%94%A8scrapy%E7%88%AC%E8%99%AB.html" title="python使用scrapy爬虫">http://honwan.xyz/python使用scrapy爬虫.html</a>
+    <a href="http://hongwan.xyz/python%E4%BD%BF%E7%94%A8scrapy%E7%88%AC%E8%99%AB.html" title="python使用scrapy爬虫">http://hongwan.xyz/python使用scrapy爬虫.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！

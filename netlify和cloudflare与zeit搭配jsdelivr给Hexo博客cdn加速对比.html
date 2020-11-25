@@ -24,7 +24,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://honwan.xyz').hostname,
+    hostname: new URL('http://hongwan.xyz').hostname,
     root: '/',
     scheme: 'Pisces',
     version: '7.6.0',
@@ -54,7 +54,7 @@
   <meta name="description" content="hexo默认github page,比较慢；目前大家使用的做法主要有coding，github 双部署，netlify，cloudflare，zeit和jsdelivr等方法；我主要选择zeit，速度快且可以让百度爬虫收录。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="netlify和cloudflare与zeit搭配jsdelivr给Hexo博客cdn加速对比">
-<meta property="og:url" content="http://honwan.xyz/netlify%E5%92%8Ccloudflare%E4%B8%8Ezeit%E6%90%AD%E9%85%8Djsdelivr%E7%BB%99Hexo%E5%8D%9A%E5%AE%A2cdn%E5%8A%A0%E9%80%9F%E5%AF%B9%E6%AF%94.html">
+<meta property="og:url" content="http://hongwan.xyz/netlify%E5%92%8Ccloudflare%E4%B8%8Ezeit%E6%90%AD%E9%85%8Djsdelivr%E7%BB%99Hexo%E5%8D%9A%E5%AE%A2cdn%E5%8A%A0%E9%80%9F%E5%AF%B9%E6%AF%94.html">
 <meta property="og:site_name" content="honwan">
 <meta property="og:description" content="hexo默认github page,比较慢；目前大家使用的做法主要有coding，github 双部署，netlify，cloudflare，zeit和jsdelivr等方法；我主要选择zeit，速度快且可以让百度爬虫收录。">
 <meta property="og:locale" content="zh_CN">
@@ -64,7 +64,7 @@
 <meta property="article:tag" content="cdn加速">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://honwan.xyz/netlify%E5%92%8Ccloudflare%E4%B8%8Ezeit%E6%90%AD%E9%85%8Djsdelivr%E7%BB%99Hexo%E5%8D%9A%E5%AE%A2cdn%E5%8A%A0%E9%80%9F%E5%AF%B9%E6%AF%94.html">
+<link rel="canonical" href="http://hongwan.xyz/netlify%E5%92%8Ccloudflare%E4%B8%8Ezeit%E6%90%AD%E9%85%8Djsdelivr%E7%BB%99Hexo%E5%8D%9A%E5%AE%A2cdn%E5%8A%A0%E9%80%9F%E5%AF%B9%E6%AF%94.html">
 
 
 <script id="page-configurations">
@@ -199,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://honwan.xyz/netlify%E5%92%8Ccloudflare%E4%B8%8Ezeit%E6%90%AD%E9%85%8Djsdelivr%E7%BB%99Hexo%E5%8D%9A%E5%AE%A2cdn%E5%8A%A0%E9%80%9F%E5%AF%B9%E6%AF%94.html">
+    <link itemprop="mainEntityOfPage" href="http://hongwan.xyz/netlify%E5%92%8Ccloudflare%E4%B8%8Ezeit%E6%90%AD%E9%85%8Djsdelivr%E7%BB%99Hexo%E5%8D%9A%E5%AE%A2cdn%E5%8A%A0%E9%80%9F%E5%AF%B9%E6%AF%94.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -252,32 +252,32 @@
 <h3 id="3-cloudflare"><a href="#3-cloudflare" class="headerlink" title="3.cloudflare"></a>3.cloudflare</h3><p>cloudflare,直接给你的网速cdn加速。<br>只需要去官网添加博客网站，然后去域名网站改DNS。</p>
 <h3 id="4-jsdelivr"><a href="#4-jsdelivr" class="headerlink" title="4.jsdelivr"></a>4.jsdelivr</h3><p>jsdelivr也是cdn加速商。我博客用的next主题内置了。直接去<a target="_blank" rel="noopener" href="https://www.cnblogs.com/lfri/p/12221963.html">next主题配置文件</a>把注释去掉就可以使用了。但只是静态资源</p>
 <h2 id="二、博客打开速度对比"><a href="#二、博客打开速度对比" class="headerlink" title="二、博客打开速度对比"></a>二、<a target="_blank" rel="noopener" href="http://dwz.date/wdx">博客</a>打开速度对比</h2><h4 id="下午"><a href="#下午" class="headerlink" title="下午:"></a>下午:</h4><p>左边原github page，右边zeit</p>
-<div align=center>![avatar](/uploads/cdn/1.png)
+<div align="center">![avatar](/uploads/cdn/1.png)
 
 <p>netlify</p>
-<div align=center>![avatar](/uploads/cdn/2.png)
+<div align="center">![avatar](/uploads/cdn/2.png)
 
 <h4 id="晚上："><a href="#晚上：" class="headerlink" title="晚上："></a>晚上：</h4><p>左边原github page，右边zeit</p>
-<div align=center>![avatar](/uploads/cdn/3.png)
+<div align="center">![avatar](/uploads/cdn/3.png)
 
 <p>netlify</p>
-<div align=center>![avatar](/uploads/cdn/4.png)
+<div align="center">![avatar](/uploads/cdn/4.png)
 
 <h4 id="早上："><a href="#早上：" class="headerlink" title="早上："></a>早上：</h4><p>原cloudflare</p>
-<div align=center>![avatar](/uploads/cdn/8.png)
+<div align="center">![avatar](/uploads/cdn/8.png)
 
 <p>左边cloudflare+jsdelivr，右边zeit+jsdelivr</p>
-<div align=center>![avatar](/uploads/cdn/7.png)
+<div align="center">![avatar](/uploads/cdn/7.png)
 
 <p>另一个测速网站打开速度对比<br>zeit搭配jsdelivr：</p>
-<div align=center>![avatar](/uploads/cdn/6.png)
+<div align="center">![avatar](/uploads/cdn/6.png)
 
 <p>cloudflare：</p>
-<div align=center>![avatar](/uploads/cdn/5.png)
+<div align="center">![avatar](/uploads/cdn/5.png)
 
 <p>本地F12,联通打开速度对比：netlify 1.6s; zeit:1.8s;CF：2.25s</p>
 <p>总结：总体zeit搭配jsdelivr速度最好，同时可以让百度收录，但是流量不多，适合我们这类小博客；<br>netlify站长之家速度不咋地，但是我这网络打开可以。与cloudflare速度一般，但是也够用。流量多。</p>
-
+</div></div></div></div></div></div></div></div>
     </div>
 
     
@@ -292,7 +292,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://honwan.xyz/netlify%E5%92%8Ccloudflare%E4%B8%8Ezeit%E6%90%AD%E9%85%8Djsdelivr%E7%BB%99Hexo%E5%8D%9A%E5%AE%A2cdn%E5%8A%A0%E9%80%9F%E5%AF%B9%E6%AF%94.html" title="netlify和cloudflare与zeit搭配jsdelivr给Hexo博客cdn加速对比">http://honwan.xyz/netlify和cloudflare与zeit搭配jsdelivr给Hexo博客cdn加速对比.html</a>
+    <a href="http://hongwan.xyz/netlify%E5%92%8Ccloudflare%E4%B8%8Ezeit%E6%90%AD%E9%85%8Djsdelivr%E7%BB%99Hexo%E5%8D%9A%E5%AE%A2cdn%E5%8A%A0%E9%80%9F%E5%AF%B9%E6%AF%94.html" title="netlify和cloudflare与zeit搭配jsdelivr给Hexo博客cdn加速对比">http://hongwan.xyz/netlify和cloudflare与zeit搭配jsdelivr给Hexo博客cdn加速对比.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！

@@ -24,7 +24,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://honwan.xyz').hostname,
+    hostname: new URL('http://hongwan.xyz').hostname,
     root: '/',
     scheme: 'Pisces',
     version: '7.6.0',
@@ -54,7 +54,7 @@
   <meta name="description" content="NFC模拟门禁卡，只是提供技术教程，请不要用于违法犯罪行为！ 需要事先购买ACR122U,读卡和写卡也可以使用有NFC功能的手机：使用软件Mifare clasic tools这个软件读取和写入卡；前面部分可以自己购买UID空白卡，读取破解出卡的信息之后直接写入空白卡就可以；只是写入小米手环麻烦点，因为目前小米手环和小米手机的门禁卡模拟功能，不支持直接模拟加密卡，因此需要先模拟未加密的卡，需要先读">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NFC模拟门禁">
-<meta property="og:url" content="http://honwan.xyz/NFC%E6%A8%A1%E6%8B%9F%E9%97%A8%E7%A6%81.html">
+<meta property="og:url" content="http://hongwan.xyz/NFC%E6%A8%A1%E6%8B%9F%E9%97%A8%E7%A6%81.html">
 <meta property="og:site_name" content="honwan">
 <meta property="og:description" content="NFC模拟门禁卡，只是提供技术教程，请不要用于违法犯罪行为！ 需要事先购买ACR122U,读卡和写卡也可以使用有NFC功能的手机：使用软件Mifare clasic tools这个软件读取和写入卡；前面部分可以自己购买UID空白卡，读取破解出卡的信息之后直接写入空白卡就可以；只是写入小米手环麻烦点，因为目前小米手环和小米手机的门禁卡模拟功能，不支持直接模拟加密卡，因此需要先模拟未加密的卡，需要先读">
 <meta property="og:locale" content="zh_CN">
@@ -64,7 +64,7 @@
 <meta property="article:tag" content="NFC">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://honwan.xyz/NFC%E6%A8%A1%E6%8B%9F%E9%97%A8%E7%A6%81.html">
+<link rel="canonical" href="http://hongwan.xyz/NFC%E6%A8%A1%E6%8B%9F%E9%97%A8%E7%A6%81.html">
 
 
 <script id="page-configurations">
@@ -199,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://honwan.xyz/NFC%E6%A8%A1%E6%8B%9F%E9%97%A8%E7%A6%81.html">
+    <link itemprop="mainEntityOfPage" href="http://hongwan.xyz/NFC%E6%A8%A1%E6%8B%9F%E9%97%A8%E7%A6%81.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -248,25 +248,25 @@
 <p>需要事先购买ACR122U,读卡和写卡也可以使用有NFC功能的手机：使用软件Mifare clasic tools这个软件读取和写入卡；<br>前面部分可以自己购买UID空白卡，读取破解出卡的信息之后直接写入空白卡就可以；<br>只是写入小米手环麻烦点，因为目前小米手环和小米手机的门禁卡模拟功能，不支持直接模拟加密卡，因此需要先模拟未加密的卡，需要先读取出需要模拟的卡数据，清除加密的数据，变成未加密的，然后使用小米手环三NFC版模拟；再写入加密数据；</p>
 <a id="more"></a> 
 
-  <div align=center>![avatar](/uploads/menjin/1.png)
+  <div align="center">![avatar](/uploads/menjin/1.png)
 
 
-<h3 id="1-先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika-dump"><a href="#1-先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika-dump" class="headerlink" title="1.先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika.dump"></a>1.先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika.dump</h3>  <div align=center>![avatar](/uploads/menjin/2.png)
-  <div align=center>![avatar](/uploads/menjin/3.png)
+<h3 id="1-先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika-dump"><a href="#1-先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika-dump" class="headerlink" title="1.先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika.dump"></a>1.先使用破解软件读卡，放入卡片，点击开始破解，得到dump文件，为linshika.dump</h3>  <div align="center">![avatar](/uploads/menjin/2.png)
+  <div align="center">![avatar](/uploads/menjin/3.png)
 
 
-<h3 id="2-然后放入UID卡，点击Initial-connect-，打开刚才读取的dump文件，记下key-直接点击编辑key改为F，这样制作无密码的dump文件，另存为123-dump"><a href="#2-然后放入UID卡，点击Initial-connect-，打开刚才读取的dump文件，记下key-直接点击编辑key改为F，这样制作无密码的dump文件，另存为123-dump" class="headerlink" title="2. 然后放入UID卡，点击Initial connect ，打开刚才读取的dump文件，记下key,直接点击编辑key改为F，这样制作无密码的dump文件，另存为123.dump"></a>2. 然后放入UID卡，点击Initial connect ，打开刚才读取的dump文件，记下key,直接点击编辑key改为F，这样制作无密码的dump文件，另存为123.dump</h3>  <div align=center>![avatar](/uploads/menjin/4.png)
+<h3 id="2-然后放入UID卡，点击Initial-connect-，打开刚才读取的dump文件，记下key-直接点击编辑key改为F，这样制作无密码的dump文件，另存为123-dump"><a href="#2-然后放入UID卡，点击Initial-connect-，打开刚才读取的dump文件，记下key-直接点击编辑key改为F，这样制作无密码的dump文件，另存为123-dump" class="headerlink" title="2. 然后放入UID卡，点击Initial connect ，打开刚才读取的dump文件，记下key,直接点击编辑key改为F，这样制作无密码的dump文件，另存为123.dump"></a>2. 然后放入UID卡，点击Initial connect ，打开刚才读取的dump文件，记下key,直接点击编辑key改为F，这样制作无密码的dump文件，另存为123.dump</h3>  <div align="center">![avatar](/uploads/menjin/4.png)
 
-<h3 id="3-打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123-Dump文件，写入卡中；从而得到无密码的卡"><a href="#3-打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123-Dump文件，写入卡中；从而得到无密码的卡" class="headerlink" title="3.打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123.Dump文件，写入卡中；从而得到无密码的卡"></a>3.打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123.Dump文件，写入卡中；从而得到无密码的卡</h3>  <div align=center>![avatar](/uploads/menjin/5.png)
+<h3 id="3-打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123-Dump文件，写入卡中；从而得到无密码的卡"><a href="#3-打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123-Dump文件，写入卡中；从而得到无密码的卡" class="headerlink" title="3.打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123.Dump文件，写入卡中；从而得到无密码的卡"></a>3.打开写卡工具：放入新的空白卡，UID卡，点击初始化，连接，选择123.Dump文件，写入卡中；从而得到无密码的卡</h3>  <div align="center">![avatar](/uploads/menjin/5.png)
 
 
-<h3 id="4-然后使用小米手环模拟这个未加密的卡；"><a href="#4-然后使用小米手环模拟这个未加密的卡；" class="headerlink" title="4.然后使用小米手环模拟这个未加密的卡；"></a>4.然后使用小米手环模拟这个未加密的卡；</h3><h3 id="5-使用英文版本的写卡工具：普通卡复制工具-exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika-dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，"><a href="#5-使用英文版本的写卡工具：普通卡复制工具-exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika-dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，" class="headerlink" title="5.使用英文版本的写卡工具：普通卡复制工具.exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika.dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，"></a>5.使用英文版本的写卡工具：普通卡复制工具.exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika.dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，</h3>  <div align=center>![avatar](/uploads/menjin/6.png)
+<h3 id="4-然后使用小米手环模拟这个未加密的卡；"><a href="#4-然后使用小米手环模拟这个未加密的卡；" class="headerlink" title="4.然后使用小米手环模拟这个未加密的卡；"></a>4.然后使用小米手环模拟这个未加密的卡；</h3><h3 id="5-使用英文版本的写卡工具：普通卡复制工具-exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika-dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，"><a href="#5-使用英文版本的写卡工具：普通卡复制工具-exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika-dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，" class="headerlink" title="5.使用英文版本的写卡工具：普通卡复制工具.exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika.dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，"></a>5.使用英文版本的写卡工具：普通卡复制工具.exe，放入手环到写卡工具上，导入一开始用读卡工具读取的要复制的卡的dump文件，linshika.dump，写卡到手环，使用读卡读取手环内文件，看是否与一开始的一样；如果不成功，反复多次写，</h3>  <div align="center">![avatar](/uploads/menjin/6.png)
 
 
 <p>厂商信息：0块0区后面部分不一样，没有影响；<br>只需要后面的一样；</p>
 <p>但是手环仍然无法读卡开门；<br>将写入到手环的数据再读取出来写入新的UID卡中，发现可以开门；因此怀疑和读卡设备机器有关；但是数据是已经写入到手环中了的；</p>
 <p>部分软件百度网盘链接：<br>链接: <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1G58728J0lU3mNdYT2riUhQ">https://pan.baidu.com/s/1G58728J0lU3mNdYT2riUhQ</a> 提取码: b9hr </p>
-
+</div></div></div></div></div></div>
     </div>
 
     
@@ -281,7 +281,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://honwan.xyz/NFC%E6%A8%A1%E6%8B%9F%E9%97%A8%E7%A6%81.html" title="NFC模拟门禁">http://honwan.xyz/NFC模拟门禁.html</a>
+    <a href="http://hongwan.xyz/NFC%E6%A8%A1%E6%8B%9F%E9%97%A8%E7%A6%81.html" title="NFC模拟门禁">http://hongwan.xyz/NFC模拟门禁.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！

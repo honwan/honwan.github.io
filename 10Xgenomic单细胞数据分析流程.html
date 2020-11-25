@@ -24,7 +24,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://honwan.xyz').hostname,
+    hostname: new URL('http://hongwan.xyz').hostname,
     root: '/',
     scheme: 'Pisces',
     version: '7.6.0',
@@ -54,7 +54,7 @@
   <meta name="description" content="10Xgenomic单细胞数据分析流程整理，虽然官网已经很详细，但是还是备份下">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10Xgenomic单细胞数据分析流程">
-<meta property="og:url" content="http://honwan.xyz/10Xgenomic%E5%8D%95%E7%BB%86%E8%83%9E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B.html">
+<meta property="og:url" content="http://hongwan.xyz/10Xgenomic%E5%8D%95%E7%BB%86%E8%83%9E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B.html">
 <meta property="og:site_name" content="honwan">
 <meta property="og:description" content="10Xgenomic单细胞数据分析流程整理，虽然官网已经很详细，但是还是备份下">
 <meta property="og:locale" content="zh_CN">
@@ -64,7 +64,7 @@
 <meta property="article:tag" content="生信">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://honwan.xyz/10Xgenomic%E5%8D%95%E7%BB%86%E8%83%9E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B.html">
+<link rel="canonical" href="http://hongwan.xyz/10Xgenomic%E5%8D%95%E7%BB%86%E8%83%9E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B.html">
 
 
 <script id="page-configurations">
@@ -199,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://honwan.xyz/10Xgenomic%E5%8D%95%E7%BB%86%E8%83%9E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B.html">
+    <link itemprop="mainEntityOfPage" href="http://hongwan.xyz/10Xgenomic%E5%8D%95%E7%BB%86%E8%83%9E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -252,11 +252,11 @@
 <h4 id="mkfastq-转格式："><a href="#mkfastq-转格式：" class="headerlink" title="mkfastq 转格式："></a>mkfastq 转格式：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cellranger mkfastq --id&#x3D;tiny-bcl2(结果目录命名) --run&#x3D;&#x2F;disk&#x2F;zhw&#x2F;zuo&#x2F;10xGenomic&#x2F;cellRanger&#x2F;example&#x2F;cellranger-tiny-bcl-1.2.0(解压目录) --csv&#x3D;cellranger-tiny-bcl-simple-1.2.0.csv (输入文件)</span><br></pre></td></tr></table></figure>
 
 <p>cellranger-tiny-bcl-simple-1.2.0.csv：</p>
-<div align=center>![avatar](/uploads/singlecell/1.1.png)
+<div align="center">![avatar](/uploads/singlecell/1.1.png)
 
 <p>结果目录：tiny-bcl2：</p>
 <p>cellranger-tiny-bcl-simple-1.2.0.csv：</p>
-<div align=center>![avatar](/uploads/singlecell/1.2.png)
+<div align="center">![avatar](/uploads/singlecell/1.2.png)
 
 
 <p>fastq结果：</p>
@@ -268,15 +268,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;disk&#x2F;soft&#x2F;cellranger-2.1.0&#x2F;cellranger count --id&#x3D;SC-3-count --transcriptome&#x3D;&#x2F;disk&#x2F;database&#x2F;10xgenomic&#x2F;refdata-cellranger-GRCh38-1.2.0 --fastqs&#x3D;&#x2F;disk&#x2F;zhw&#x2F;zhou&#x2F;Zhou_10XGenomic_1801&#x2F;0-FASTQ&#x2F;SC-3 --sample&#x3D;SC-3（fastq前缀）</span><br></pre></td></tr></table></figure>
 
 <p>–sample：<br>cellranger-tiny-bcl-simple-1.2.0.csv：</p>
-<div align=center>![avatar](/uploads/singlecell/2.1.png)
-<div align=center>![avatar](/uploads/singlecell/2.2.png)
+<div align="center">![avatar](/uploads/singlecell/2.1.png)
+<div align="center">![avatar](/uploads/singlecell/2.2.png)
 
 <p>sample34/outs，web_summary.html为网页结果。</p>
-<div align=center>![avatar](/uploads/singlecell/2.3.png)
+<div align="center">![avatar](/uploads/singlecell/2.3.png)
 
-<div align=center>![avatar](/uploads/singlecell/2.4.png)
+<div align="center">![avatar](/uploads/singlecell/2.4.png)
 
-<div align=center>![avatar](/uploads/singlecell/2.5.png)
+<div align="center">![avatar](/uploads/singlecell/2.5.png)
 
 
 
@@ -284,13 +284,13 @@
 
 <p>filtered_gene_bc_matrices为稀疏矩阵，转可以为普通矩阵</p>
 <h1 id="三、-再分析reanalyze"><a href="#三、-再分析reanalyze" class="headerlink" title="三、 再分析reanalyze"></a>三、 再分析reanalyze</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cellranger reanalyze --id&#x3D;SC-4 --matrix&#x3D;&#x2F;disk&#x2F;zhw&#x2F;zhou&#x2F;Zhou_10XGenomic_1801&#x2F;2_cellranger_count&#x2F;SC-4-count-mm10&#x2F;outs&#x2F;filtered_gene_bc_matrices_h5.h5</span><br></pre></td></tr></table></figure>
-<div align=center>![avatar](/uploads/singlecell/3.1.png)
+<div align="center">![avatar](/uploads/singlecell/3.1.png)
 
-<div align=center>![avatar](/uploads/singlecell/3.2.png)
+<div align="center">![avatar](/uploads/singlecell/3.2.png)
 
-<div align=center>![avatar](/uploads/singlecell/3.3.png)
+<div align="center">![avatar](/uploads/singlecell/3.3.png)
 
-<div align=center>![avatar](/uploads/singlecell/3.4.png)
+<div align="center">![avatar](/uploads/singlecell/3.4.png)
 
 <h1 id="四、-cellrangerRkit-R包第二步分析"><a href="#四、-cellrangerRkit-R包第二步分析" class="headerlink" title="四、 cellrangerRkit R包第二步分析"></a>四、 cellrangerRkit R包第二步分析</h1><p>稀疏矩阵转为密集矩阵：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pbmc.data_SC4 &lt;- Read10X(data.dir &#x3D; &quot;&#x2F;disk&#x2F;zhw&#x2F;zhou&#x2F;Zhou_10XGenomic_1801&#x2F;1-MAPPING&#x2F;sample_SC-4&#x2F;outs&#x2F;filtered_gene_bc_matrices&#x2F;mm10&quot;)</span><br><span class="line">pbmc.data_SC4&#x3D;as.matrix(pbmc.data_SC4)</span><br><span class="line">SC4_full_matrix&#x3D;pbmc.data_SC4</span><br><span class="line">save(SC4_full_matrix,file&#x3D;&quot;&#x2F;disk&#x2F;zhw&#x2F;zhou&#x2F;Zhou_10XGenomic_1801&#x2F;5-RCA&#x2F;SC4_full_matrix.Rdata&quot;)</span><br></pre></td></tr></table></figure>
@@ -304,7 +304,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cellranger mkref --nthreads&#x3D;40 --genome&#x3D;ref-mm10-hg38-HBB2 --fasta&#x3D;&#x2F;disk&#x2F;database&#x2F;10xgenomic&#x2F;mm10-hg38-HBB-data&#x2F;fasta&#x2F;genome_mm10_humanHBB.fa --genes&#x3D;&#x2F;disk&#x2F;database&#x2F;10xgenomic&#x2F;mm10-hg38-HBB-data&#x2F;genes&#x2F;gene.gtf</span><br></pre></td></tr></table></figure>
 <p>两个物种：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cellranger mkref --genome&#x3D;hg38  --fasta&#x3D;&#x2F;disk&#x2F;database&#x2F;mouse&#x2F;UCSC-mm10&#x2F;mm10.fa --genes&#x3D;&#x2F;disk&#x2F;database&#x2F;mouse&#x2F;gencode.vM10.annotation.gtf  --genome&#x3D;mm10 --fasta&#x3D;&#x2F;disk&#x2F;database&#x2F;human&#x2F;hg38&#x2F;Gencode&#x2F;genome.fa --genes&#x3D;&#x2F;disk&#x2F;database&#x2F;human&#x2F;hg38&#x2F;Gencode&#x2F;gencode.v25.annotation.gtf</span><br></pre></td></tr></table></figure>
-
+</div></div></div></div></div></div></div></div></div></div></div>
     </div>
 
     
@@ -319,7 +319,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://honwan.xyz/10Xgenomic%E5%8D%95%E7%BB%86%E8%83%9E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B.html" title="10Xgenomic单细胞数据分析流程">http://honwan.xyz/10Xgenomic单细胞数据分析流程.html</a>
+    <a href="http://hongwan.xyz/10Xgenomic%E5%8D%95%E7%BB%86%E8%83%9E%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E6%B5%81%E7%A8%8B.html" title="10Xgenomic单细胞数据分析流程">http://hongwan.xyz/10Xgenomic单细胞数据分析流程.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！

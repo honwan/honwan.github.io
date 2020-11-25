@@ -24,7 +24,7 @@
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://honwan.xyz').hostname,
+    hostname: new URL('http://hongwan.xyz').hostname,
     root: '/',
     scheme: 'Pisces',
     version: '7.6.0',
@@ -54,7 +54,7 @@
   <meta name="description" content="在收集数据的时候，一般会去GEO查找，但是GEO关键字搜索一个个点非常麻烦；于是想快速筛选结果；刚好Biopython提供了访问NCBI Entrez的包;拼接下就写个循环就可以使用；主要是进行字符串的提取">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Biopython一键保存GEO所有关键字结果">
-<meta property="og:url" content="http://honwan.xyz/%E4%B8%80%E9%94%AE%E7%94%9F%E6%88%90GEO%E5%85%B3%E9%94%AE%E5%AD%97%E7%BB%93%E6%9E%9C.html">
+<meta property="og:url" content="http://hongwan.xyz/%E4%B8%80%E9%94%AE%E7%94%9F%E6%88%90GEO%E5%85%B3%E9%94%AE%E5%AD%97%E7%BB%93%E6%9E%9C.html">
 <meta property="og:site_name" content="honwan">
 <meta property="og:description" content="在收集数据的时候，一般会去GEO查找，但是GEO关键字搜索一个个点非常麻烦；于是想快速筛选结果；刚好Biopython提供了访问NCBI Entrez的包;拼接下就写个循环就可以使用；主要是进行字符串的提取">
 <meta property="og:locale" content="zh_CN">
@@ -64,7 +64,7 @@
 <meta property="article:tag" content="生信">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://honwan.xyz/%E4%B8%80%E9%94%AE%E7%94%9F%E6%88%90GEO%E5%85%B3%E9%94%AE%E5%AD%97%E7%BB%93%E6%9E%9C.html">
+<link rel="canonical" href="http://hongwan.xyz/%E4%B8%80%E9%94%AE%E7%94%9F%E6%88%90GEO%E5%85%B3%E9%94%AE%E5%AD%97%E7%BB%93%E6%9E%9C.html">
 
 
 <script id="page-configurations">
@@ -199,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://honwan.xyz/%E4%B8%80%E9%94%AE%E7%94%9F%E6%88%90GEO%E5%85%B3%E9%94%AE%E5%AD%97%E7%BB%93%E6%9E%9C.html">
+    <link itemprop="mainEntityOfPage" href="http://hongwan.xyz/%E4%B8%80%E9%94%AE%E7%94%9F%E6%88%90GEO%E5%85%B3%E9%94%AE%E5%AD%97%E7%BB%93%E6%9E%9C.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -254,19 +254,19 @@
 <p>函数名：</p>
 <p>** esearch **<br>用于搜索关键字和要选择的数据库，这里GEO使用gds；</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">handle&#x3D;Entrez.esearch(db&#x3D;&quot;gds&quot;,term&#x3D;keyword,usehistory&#x3D;&quot;Y&quot;)</span><br></pre></td></tr></table></figure>
-<div align=center>![avatar](/uploads/biopython/2.png)
+<div align="center">![avatar](/uploads/biopython/2.png)
 
 <p>如图：GEO搜索m6A有192条信息；</p>
-<div align=center>![avatar](/uploads/biopython/1.png)
+<div align="center">![avatar](/uploads/biopython/1.png)
 
 <p>Count数目对应了Items;IdList则刚好对应了ID</p>
 <p>** esummary **<br>通过主要的IDs来获取摘要</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">handle&#x3D;Entrez.esummary(db&#x3D;&quot;gds&quot;,id&#x3D;myid)</span><br></pre></td></tr></table></figure>
 <p>使用其中第一个ID 查询信息：</p>
-<div align=center>![avatar](/uploads/biopython/3.png)
+<div align="center">![avatar](/uploads/biopython/3.png)
 
 <p>对应GEO页面搜索第一条结果GSE页面信息：</p>
-<div align=center>![avatar](/uploads/biopython/4.png)
+<div align="center">![avatar](/uploads/biopython/4.png)
 
 <p>包含有GSE号，平台号，summary，以及包含的GSM号等</p>
 <p>然后就是可以根据record进行需要的信息的提取;使用key就可以了；</p>
@@ -278,7 +278,7 @@
 <p>比如搜索m6a cancer</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python onlyGSE.py m6a+cancer</span><br></pre></td></tr></table></figure>
 
-
+</div></div></div></div>
     </div>
 
     
@@ -293,7 +293,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://honwan.xyz/%E4%B8%80%E9%94%AE%E7%94%9F%E6%88%90GEO%E5%85%B3%E9%94%AE%E5%AD%97%E7%BB%93%E6%9E%9C.html" title="使用Biopython一键保存GEO所有关键字结果">http://honwan.xyz/一键生成GEO关键字结果.html</a>
+    <a href="http://hongwan.xyz/%E4%B8%80%E9%94%AE%E7%94%9F%E6%88%90GEO%E5%85%B3%E9%94%AE%E5%AD%97%E7%BB%93%E6%9E%9C.html" title="使用Biopython一键保存GEO所有关键字结果">http://hongwan.xyz/一键生成GEO关键字结果.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
